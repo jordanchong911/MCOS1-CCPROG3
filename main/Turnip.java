@@ -10,8 +10,12 @@ public class Turnip extends Seed{
         WaterBonusLimit = 2;
         FertilizerNeeds = 0;
         fertilizerBonusLimit = 1;
-        //formula for random int: (int) (Math.random()*(maximum - minimum))) + minimum
-        // the produced product is calculated when the plant is planted
+        /*
+         formula for random int: (int) (Math.random()*(maximum - minimum))) + minimum
+         the produced product is calculated when the plant is planted. We could place this
+         inside a method an call it later if you want the calculation to be done after the harvest.
+         We have to set it to zero though.
+        */
         ProducedProduct = (int) (Math.random()*(2 - 1)) +1;
         Cost = 5;
         SellingPrice = 6;
