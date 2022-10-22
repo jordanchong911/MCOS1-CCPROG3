@@ -57,4 +57,24 @@ public class Farmer{
         return tools.get(4);
     }
 
+    public void setObjecticoins(Float objecticoins) {
+        Objecticoins = objecticoins;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+    
+    public void setXp(Float xp) {
+        this.xp = xp;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+    }
+
+    public void setCurrentDay(int currentDay) {
+        this.currentDay = currentDay;
+    }
+
 }
