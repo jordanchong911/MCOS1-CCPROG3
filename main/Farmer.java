@@ -217,9 +217,11 @@ public class Farmer{
         Title nextTitle = titles.get(titleIndex+1);
         //sufficient funds
         if(enoughMoney(Objectcoins,nextTitle.getRegistrationFee()))
-            // enought level
-            if( xp/100 >= nextTitle.getlevelRequired())
+            // enought level deduct money and increment rank
+            if( xp/100 >= nextTitle.getlevelRequired()){
                 titleIndex += 1;
+                Objectcoins -= nextTitle.getRegistrationFee();
+            }
     }
 
     public void RenderPlot(){
