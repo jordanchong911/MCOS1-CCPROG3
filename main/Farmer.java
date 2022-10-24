@@ -204,4 +204,17 @@ public class Farmer{
             }
         }
     }
+
+    public void nextLevel(){
+        // max is 4 no more titles available
+        if(titleIndex < 4)
+            return;
+        Title nextTitle = titles.get(titleIndex+1);
+        //sufficient funds
+        if(enoughMoney(Objectcoins,nextTitle.getRegistrationFee())){
+            // enought level
+            if( xp/100 >= nextTitle.getlevelRequired())
+                titleIndex += 1;
+        }
+    }
 }
