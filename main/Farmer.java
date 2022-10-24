@@ -218,13 +218,14 @@ public class Farmer{
 
     public void RenderPlot(){
         for(int i = 0; i < rows; i++){
+            System.out.print("| ");
             for(int j = 0; j < columns; j++){
                 if(land[i][j].getSeed() != null)
                     System.out.print(land[i][j].getSeed().getSymbol() + " ");
                 else
                     System.out.print("EMP ");
             }
-            System.out.println();
+            System.out.println("|");
         }
     }
 
