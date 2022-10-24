@@ -8,8 +8,8 @@ public class Farmer{
     private boolean gameOver;
     private int currentDay;
     private int titleIndex = 0;
-    private int rows = 3;
-    private int columns = 3;
+    private int rows = 10;
+    private int columns = 5;
     private Float Objectcoins= 100f;
     private Float xp;
     private Plot[][] land = new Plot[rows][columns] ; 
@@ -30,7 +30,14 @@ public class Farmer{
                                                    new Tools("Pickaxe", 50,15),
                                                    new Tools("Shovel", 7, 2.0f)));
 
-        seed = new ArrayList<Seeds>(Arrays.asList(new Seeds(2,1,1,2,0,2, 1,5,6,5, "Turnips", "Root crop","TNP")));
+        seed = new ArrayList<Seeds>(Arrays.asList(new Seeds(2,1,1,2,0,2, 1,5,6,5, "Turnip", "Root crop","TNP"),
+                                                  new Seeds(3,1,1,2,0,2, 1,10,9,7.5f, "Carrot", "Root crop","CRT"),
+                                                  new Seeds(5,3,1,10,1,4, 2,20,3,12.5f, "Potato", "Root crop","PTO"),
+                                                  new Seeds(1,1,1,1,0,2, 1,5,5,2.5f, "Rose", "Flower","RSE"),
+                                                  new Seeds(2,2,1,1,0,3, 1,10,9,5f, "Turnips", "Flower","TPS"),
+                                                  new Seeds(3,2,1,1,1,3, 2,20,19,7.5f, "Sunflower", "Flower","SNF"),
+                                                  new Seeds(10,7,5,15,4,7, 4,100,8,25f, "Mango", "Fruit tree","MGO"),
+                                                  new Seeds(10,7,10,15,5,7, 5,200,5,25f, "Apple", "Fruit tree","APL")));
         
         xp = 0f;
         gameOver = false;
@@ -102,13 +109,40 @@ public class Farmer{
         return false;
     }
 
-    public void plantSeed(Plot plot,int seedType){
+    //check fruit tree conditions
+    public boolean inbound(int x, int y){
+        // if first or last row/column
+        if(x == 0 || x == rows-1 || y == 0 || y == columns - 1)
+            return false;
+        return true;
+    }
+
+    public boolean besideTree(int x, int y){
+        if(inbound(x, y) == false)
+            return false;
+        //right,left,down,up,r down dia, l down dia, l up dia, r up dia
+        int[][] directions = {{1,0},{-1,0},{0,1},{0,-1},{1,1},{-1,1},{-1,-1},{1,-1}};
+        //loop all adjacent plots and check if occupied
+        for(int[] i : directions){
+            Plot plot = land[x+i[0]][y+i[1]];
+            if(plot.isHasRock() || plot.getSeed() != null)
+                return false;
+        }
+        return true;
+    }
+
+    public void plantSeed(int seedType,int x ,int y){
+        Plot plot = land[x][y];
         if(plot.isHasRock())
             return;
         if(plot.isPlowed() == true && plot.getSeed() == null){
             Seeds seedPlaced = seed.get(seedType-1);
             // always check if enough money
             if(enoughMoney(Objectcoins,seedPlaced.getSeedCost())){
+                // for fruit trees use checking functions
+                if(seedPlaced.getCropType().equals("Fruit tree"))
+                    if(besideTree(x, y) == false)
+                        return;
                 //set seed from array as the planted
                 plot.setSeed(seedPlaced);
                 Seeds plotSeed = plot.getSeed(); 
