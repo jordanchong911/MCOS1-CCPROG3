@@ -8,14 +8,17 @@ public class Farmer{
     private boolean gameOver;
     private int currentDay;
     private int titleIndex = 0;
-    private int rows = 1;
-    private int columns = 1;
+    private int rows = 3;
+    private int columns = 3;
     private Float Objectcoins= 100f;
     private Float xp;
-    private Plot[][] land; 
+    private Plot[][] land = new Plot[rows][columns] ; 
 
     public Farmer() {
-
+        for(int i = 0; i < rows; i++)
+            for(int j = 0; j < columns; j++)
+                land[i][j] = new Plot();
+        
         titles = new ArrayList<Title>(Arrays.asList(new Title("Farmer", 0, 0, 0, 0, 0,0),
                                                     new Title("Registered Farmer", 5, 1, 1, 0, 0,200),
                                                     new Title("Distinguished Farmer", 10, 2, 2, 1, 0, 300),
@@ -27,12 +30,8 @@ public class Farmer{
                                                    new Tools("Pickaxe", 50,15),
                                                    new Tools("Shovel", 7, 2.0f)));
 
-        seed = new ArrayList<Seeds>(Arrays.asList(new Seeds(2,1,1,2,0,2, 1,5,6,5, "Turnips", "Root crop")));
+        seed = new ArrayList<Seeds>(Arrays.asList(new Seeds(2,1,1,2,0,2, 1,5,6,5, "Turnips", "Root crop","TNP")));
         
-        for(int i = 0; i < rows; i++)
-            for(int j = 0; j < columns; j++)
-                land[i][j] = new Plot();
-
         xp = 0f;
         gameOver = false;
         currentDay = 1;
@@ -111,8 +110,8 @@ public class Farmer{
             // always check if enough money
             if(enoughMoney(Objectcoins,seedPlaced.getSeedCost())){
                 //seet seed from array as the planted
-                Seeds plotSeed = plot.getSeed(); 
                 plot.setSeed(seedPlaced);
+                Seeds plotSeed = plot.getSeed(); 
                 plotSeed.setDayPlanted(currentDay);
                 //deduct player coins
                 Objectcoins -= plotSeed.getSeedCost();
@@ -199,7 +198,7 @@ public class Farmer{
         // if the harvest time is 0 and not withered
         if(plant.getHarvestTime() == 0){
             //if enough water and fertilizer
-            if(plant.getWaterNeeds()<= plant.getWaterNo() && plant.getFertilizerNeeds() <= plant.getFertilizerNo()){
+            if(plant.MeesFertilizerNeeds() && plant.MeetsWaterNeeds()){
 
             }
         }
@@ -211,10 +210,28 @@ public class Farmer{
             return;
         Title nextTitle = titles.get(titleIndex+1);
         //sufficient funds
-        if(enoughMoney(Objectcoins,nextTitle.getRegistrationFee())){
+        if(enoughMoney(Objectcoins,nextTitle.getRegistrationFee()))
             // enought level
             if( xp/100 >= nextTitle.getlevelRequired())
                 titleIndex += 1;
+    }
+
+    public void RenderPlot(){
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < columns; j++){
+                if(land[i][j].getSeed() != null)
+                    System.out.print(land[i][j].getSeed().getSymbol() + " ");
+                else
+                    System.out.print("EMP ");
+            }
+            System.out.println();
         }
     }
+
+    // debugging purposes
+    @Override
+    public String toString() {
+        return "Farmer [Objectcoins=" + Objectcoins + ", xp=" + xp + "]";
+    }
+
 }

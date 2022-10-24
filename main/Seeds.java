@@ -16,11 +16,12 @@ public class Seeds {
     private float xpYield;
     private boolean isWithered = false;
     private String seedName;
+    private String symbol;
     private String cropType;
 
     public Seeds(int harvestTime, int waterNeeds, int productsMin, int productsMax,
             int fertilizerNeeds, int waterBonusLimit, int fertilizerBonusLimit, float seedCost, float basePrice,
-            float xpYield, String seedName, String cropType) {
+            float xpYield, String seedName, String cropType, String symbol) {
         this.harvestTime = harvestTime;
         this.waterNeeds = waterNeeds;
         this.productsMin = productsMin;
@@ -33,6 +34,7 @@ public class Seeds {
         this.xpYield = xpYield;
         this.seedName = seedName;
         this.cropType = cropType;
+        this.symbol = symbol;
     }
 
     public String getSeedName() {
@@ -99,6 +101,10 @@ public class Seeds {
         return FertilizerBonusLimit;
     }
     
+    public String getSymbol() {
+        return symbol;
+    }
+
     public int setProductsProduced(){
         //add math function here
         Random r = new Random();
@@ -123,6 +129,14 @@ public class Seeds {
 
     public void setHarvestTime(int harvestTime){
         this.harvestTime = harvestTime;
+    }
+
+    public boolean MeetsWaterNeeds(){
+        return waterNo >= waterNeeds;
+    }
+
+    public boolean MeesFertilizerNeeds(){
+        return fertilizerNo >= fertilizerNeeds;
     }
 
 }
