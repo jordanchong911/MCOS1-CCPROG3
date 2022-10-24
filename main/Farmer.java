@@ -194,9 +194,12 @@ public class Farmer{
 
     public void harvestPlant(Plot plot){
         Seeds plant = plot.getSeed();
-        //in the next day function remember to decrement harvestTime
+        /*in the next day function remember to decrement harvestTime
+        plantless lot do nothing*/
+        if(plant == null)
+            return;
         // cant harvest withered
-        if(plant.isWithered())
+        if(plant.isWithered() == false)
             return;
         // if the harvest time is 0 and not withered
         if(plant.getHarvestTime() == 0){
