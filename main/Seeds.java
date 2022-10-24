@@ -1,11 +1,16 @@
+import java.util.Random;
+
 public class Seeds {
-    private int havestTime;
+    private int harvestTime;
     private int waterNeeds;
-    private int productsProduced;
+    private int productsMin;
+    private int productsMax;
     private int fertilizerNeeds;
     private int waterNo = 0;
     private int fertilizerNo = 0;
     private int dayPlanted = -1;
+    private int waterBonusLimit;
+    private int FertilizerBonusLimit;
     private float seedCost;
     private float basePrice;
     private float xpYield;
@@ -13,17 +18,21 @@ public class Seeds {
     private String seedName;
     private String cropType;
 
-    public Seeds(String seedName, String cropType, int havestTime, int waterNeeds, int fertilizerNeeds, float seedCost,
-            float basePrice, int productsProduced, float xpYield) {
-        this.seedName = seedName;
-        this.cropType = cropType;
-        this.havestTime = havestTime;
+    public Seeds(int harvestTime, int waterNeeds, int productsMin, int productsMax,
+            int fertilizerNeeds, int waterBonusLimit, int fertilizerBonusLimit, float seedCost, float basePrice,
+            float xpYield, String seedName, String cropType) {
+        this.harvestTime = harvestTime;
         this.waterNeeds = waterNeeds;
+        this.productsMin = productsMin;
+        this.productsMax = productsMax;
         this.fertilizerNeeds = fertilizerNeeds;
+        this.waterBonusLimit = waterBonusLimit;
+        this.FertilizerBonusLimit = fertilizerBonusLimit;
         this.seedCost = seedCost;
         this.basePrice = basePrice;
-        this.productsProduced = productsProduced;
         this.xpYield = xpYield;
+        this.seedName = seedName;
+        this.cropType = cropType;
     }
 
     public String getSeedName() {
@@ -34,8 +43,8 @@ public class Seeds {
         return cropType;
     }
 
-    public int getHavestTime() {
-        return havestTime;
+    public int getHarvestTime() {
+        return harvestTime;
     }
 
     public int getWaterNeeds() {
@@ -52,10 +61,6 @@ public class Seeds {
 
     public float getBasePrice() {
         return basePrice;
-    }
-
-    public int getProductsProduced() {
-        return productsProduced;
     }
 
     public float getXpYield() {
@@ -78,7 +83,46 @@ public class Seeds {
         return dayPlanted;
     }    
 
-    public void setProductsProduced(){
-        //add math function here
+    public int getProductsMin() {
+        return productsMin;
     }
+
+    public int getProductsMax() {
+        return productsMax;
+    }
+
+    public int getWaterBonusLimit() {
+        return waterBonusLimit;
+    }
+
+    public int getFertilizerBonusLimit() {
+        return FertilizerBonusLimit;
+    }
+    
+    public int setProductsProduced(){
+        //add math function here
+        Random r = new Random();
+        return r.nextInt(productsMin,productsMax+1);
+    }
+
+    public void setDayPlanted(int dayPlanted){
+        this.dayPlanted = dayPlanted;
+    }
+
+    public void setWaterNo(int waterNo) {
+        this.waterNo = waterNo;
+    }
+
+    public void setFertilizerNo(int fertilizerNo) {
+        this.fertilizerNo = fertilizerNo;
+    }
+
+    public void setWithered(boolean isWithered) {
+        this.isWithered = isWithered;
+    }
+
+    public void setHarvestTime(int harvestTime){
+        this.harvestTime = harvestTime;
+    }
+
 }
