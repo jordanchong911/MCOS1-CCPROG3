@@ -109,7 +109,7 @@ public class Farmer{
             Seeds seedPlaced = seed.get(seedType-1);
             // always check if enough money
             if(enoughMoney(Objectcoins,seedPlaced.getSeedCost())){
-                //seet seed from array as the planted
+                //set seed from array as the planted
                 plot.setSeed(seedPlaced);
                 Seeds plotSeed = plot.getSeed(); 
                 plotSeed.setDayPlanted(currentDay);
@@ -148,10 +148,8 @@ public class Farmer{
         Tools waterCan = tools.get(1);
         Seeds plant = plot.getSeed();
         if(plant != null){
-            //xp is only awarded if the plant is not max limit and not withered
-            int maxLimit = plant.getWaterBonusLimit() + titles.get(titleIndex).getWaterBonus();
-            if(plant.isWithered() == false && plant.getWaterNo() < maxLimit){
-                // add plant and player attrivbutes
+            //this doesnt allow watering of withered crops
+            if(plant.isWithered() == false){
                 plant.setWaterNo(plant.getWaterNo()+1);
                 xp += waterCan.getXpGain();
             }
@@ -162,9 +160,8 @@ public class Farmer{
         Tools fertilizer = tools.get(2);
         Seeds plant = plot.getSeed();
         if(plant != null){
-            //xp is only awarded if the plant is not max limit and not withered
-            int maxLimit = plant.getWaterBonusLimit() + titles.get(titleIndex).getFertilizerBonus();
-            if(plant.isWithered() == false && plant.getWaterNo() < maxLimit){
+            //this doesnt allow fertilizing withered crops
+            if(plant.isWithered() == false){
                 plant.setFertilizerNo(plant.getFertilizerNo()+1);
                 Objectcoins -= fertilizer.getCost();
                 xp += fertilizer.getXpGain();
@@ -189,6 +186,12 @@ public class Farmer{
     }
     
     //finish this function 
+    /* 
+        To compute for the bonus
+        int maxFertilizerLimit = plant.getWaterBonusLimit() + titles.get(titleIndex).getFertilizerBonus();
+        int maxWaterLimit = plant.getWaterBonusLimit() + titles.get(titleIndex).getWaterBonus();
+    */
+
     public void harvestPlant(Plot plot){
         Seeds plant = plot.getSeed();
         //in the next day function remember to decrement harvestTime
