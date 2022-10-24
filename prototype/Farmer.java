@@ -2,13 +2,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Farmer{
-    private Float Objecticoins;
     private ArrayList<Title> titles;
     private ArrayList<Tools> tools;
-    private ArrayList<Seeds> seeds;
-    private Float xp;
     private boolean gameOver;
     private int currentDay;
+    private int titleIndex = 0;
+    private int rows = 1;
+    private int columns = 1;
+    private Float Objecticoins;
+    private Float xp;
+    private Plot[][] land; 
 
     public Farmer() {
         Objecticoins = 100f;
@@ -21,11 +24,13 @@ public class Farmer{
         tools = new ArrayList<Tools>(Arrays.asList(new Tools("Plow", 0,0.5f),
                                                    new Tools("Watering Can", 0,0.5f),
                                                    new Tools("Fertilizer", 10,4),
-                                                   new Tools("Watering Can", 0,0.5f),
+                                                   new Tools("Pickaxe", 50,15),
                                                    new Tools("Shovel", 7, 2.0f)));
         
-        seeds = new ArrayList<Seeds>(Arrays.asList(new Seeds("Turnips", 1, "Root Crop", 2, 1, 0, 5, 6, 5)));
-        
+        for(int i = 0; i < rows; i++)
+            for(int j = 0; j < columns; j++)
+                land[i][j] = new Plot();
+
         xp = 0f;
         gameOver = false;
         currentDay = 1;
@@ -50,6 +55,22 @@ public class Farmer{
         return currentDay;
     }
     
+    public int getTitleIndex() {
+        return titleIndex;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getColumns() {
+        return columns;
+    }
+
+    public Plot[][] getLand() {
+        return land;
+    }
+    
     public void setObjecticoins(Float objecticoins) {
         Objecticoins = objecticoins;
     }
@@ -66,8 +87,8 @@ public class Farmer{
         this.currentDay = currentDay;
     }
 
-    public ArrayList<Seeds> getSeeds() {
-        return seeds;
+    public void setTitleIndex(int titleIndex) {
+        this.titleIndex = titleIndex;
     }
-
+    
 }
