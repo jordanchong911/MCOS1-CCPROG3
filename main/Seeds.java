@@ -105,7 +105,7 @@ public class Seeds {
         return symbol;
     }
 
-    public int setProductsProduced(){
+    public int computeProductsProduced(){
         //add math function here
         Random r = new Random();
         return r.nextInt(productsMin,productsMax+1);

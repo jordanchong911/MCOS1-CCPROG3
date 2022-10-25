@@ -8,8 +8,8 @@ public class Farmer{
     private boolean gameOver;
     private int currentDay;
     private int titleIndex = 0;
-    private int rows = 10;
-    private int columns = 5;
+    private int rows = 3;
+    private int columns = 3;
     private Float Objectcoins= 100f;
     private Float xp;
     private Plot[][] land = new Plot[rows][columns] ; 
@@ -103,22 +103,49 @@ public class Farmer{
         this.titleIndex = titleIndex;
     }
 
+    //error messages
     public boolean enoughMoney(float objecticoins,float cost){
         if(objecticoins>= cost)
             return true;
         return false;
     }
 
+    public void rockError(int type){
+        if(type == 1)
+            System.out.println("This plot has a rock unable to plant seed");
+        else if(type == 2)
+            System.out.println("There is no rock here");
+    }
+
+    public void moneyError(){
+        System.out.println("You don't have enough objectcoins");
+    }
+
+    public void plotError(int type){
+        if(type == 1)
+            System.out.println("The plot is either occupied or not plowed");
+        else if(type == 2)
+            System.out.println("The plot is plowed");
+    }
+
+    public void plantError(int type){
+        if(type == 1)
+            System.out.println("The plot has no plant");
+        else if(type == 2)
+            System.out.println("The plant is withered");
+    }
+    // error messages up to here
+
     //check fruit tree conditions
-    public boolean inbound(int x, int y){
+    public boolean Inbound(int x, int y){
         // if first or last row/column
         if(x == 0 || x == rows-1 || y == 0 || y == columns - 1)
             return false;
         return true;
     }
 
-    public boolean besideTree(int x, int y){
-        if(inbound(x, y) == false)
+    public boolean BesideTree(int x, int y){
+        if(Inbound(x, y) == false)
             return false;
         //right,left,down,up,r down dia, l down dia, l up dia, r up dia
         int[][] directions = {{1,0},{-1,0},{0,1},{0,-1},{1,1},{-1,1},{-1,-1},{1,-1}};
@@ -131,26 +158,36 @@ public class Farmer{
         return true;
     }
 
-    public void plantSeed(int seedType,int x ,int y){
+    public void PlantSeed(int seedType,int x ,int y){
         Plot plot = land[x][y];
-        if(plot.isHasRock())
+        if(plot.isHasRock()){
+            rockError(1);
             return;
+        }
         if(plot.isPlowed() == true && plot.getSeed() == null){
             Seeds seedPlaced = seed.get(seedType-1);
             // always check if enough money
             if(enoughMoney(Objectcoins,seedPlaced.getSeedCost())){
                 // for fruit trees use checking functions
                 if(seedPlaced.getCropType().equals("Fruit tree"))
-                    if(besideTree(x, y) == false)
+                    if(BesideTree(x, y) == false){
+                        System.out.println("Invalid location for fruit tree");
                         return;
+                    }
                 //set seed from array as the planted
                 plot.setSeed(seedPlaced);
                 Seeds plotSeed = plot.getSeed(); 
                 plotSeed.setDayPlanted(currentDay);
                 //deduct player coins
                 Objectcoins -= plotSeed.getSeedCost();
-            }
-        }
+                //inform user
+                System.out.println("Successfully planted " + seedPlaced.getSeedName());
+            } 
+            else
+                moneyError();
+        } 
+        else
+            plotError(1);
     }
 
     public void RemoveRock(Plot plot){
@@ -161,24 +198,37 @@ public class Farmer{
                 plot.setHasRock(false);
                 Objectcoins -= Pickaxe.getCost();
                 xp += Pickaxe.getXpGain();
-            }
-        }
+                //inform user
+                System.out.println("Successfully removed rock");
+            } 
+            else
+                moneyError();
+        } 
+        else
+            rockError(2);
     }
 
     // doesnt cost anything so no need subtraction
     public void Plow(Plot plot){
         Tools Plow = tools.get(0);
         // cant plow land with rock
-        if(plot.isHasRock())
+        if(plot.isHasRock()){
+            rockError(1);
             return;
+        }
         if(plot.isPlowed() == false){
             plot.setPlowed(true);
             xp += Plow.getXpGain();
-        }
+            //inform user
+            System.out.println("Successfully plowed plot");
+        } 
+        else
+            plotError(2);
+
     }
 
     // doesnt cost anything so no need subtraction
-    public void waterPlant(Plot plot){
+    public void WaterPlant(Plot plot){
         Tools waterCan = tools.get(1);
         Seeds plant = plot.getSeed();
         if(plant != null){
@@ -186,11 +236,16 @@ public class Farmer{
             if(plant.isWithered() == false){
                 plant.setWaterNo(plant.getWaterNo()+1);
                 xp += waterCan.getXpGain();
+                System.out.println("Successfully watered crop");
             }
-        }
+            else
+                plantError(2);
+        } 
+        else
+            plantError(1);
     }
 
-    public void fertilizePlant(Plot plot){
+    public void FertilizePlant(Plot plot){
         Tools fertilizer = tools.get(2);
         Seeds plant = plot.getSeed();
         if(plant != null){
@@ -199,11 +254,16 @@ public class Farmer{
                 plant.setFertilizerNo(plant.getFertilizerNo()+1);
                 Objectcoins -= fertilizer.getCost();
                 xp += fertilizer.getXpGain();
+                System.out.println("Successfully fertilized crop");
             }
+            else
+                plantError(2);
         }
+        else
+            plantError(1);
     }
 
-    public void shovelPlot(Plot plot){
+    public void ShovelPlot(Plot plot){
         Tools shovel = tools.get(4);
         Seeds plant = plot.getSeed();
         //check first if player has enough coins
@@ -216,38 +276,57 @@ public class Farmer{
             Objectcoins -= shovel.getCost();
             // make plot unplowed dosent matter if it has rock since the default is false    
             plot.setPlowed(false);
+            System.out.println("Successfully shoveled plot");
         }
+        else
+            moneyError();
     }
     
     //finish this function 
     /* 
-        To compute for the bonus
-        int maxFertilizerLimit = plant.getWaterBonusLimit() + titles.get(titleIndex).getFertilizerBonus();
-        int maxWaterLimit = plant.getWaterBonusLimit() + titles.get(titleIndex).getWaterBonus();
+        -in the next day function remember to decrement harvestTime
+        -This function is available if the plant is ready for harvest so it is assumed that the plant is present and ready    
     */
 
-    public void harvestPlant(Plot plot){
-        Seeds plant = plot.getSeed();
-        /*in the next day function remember to decrement harvestTime
-        plantless lot do nothing*/
-        if(plant == null)
-            return;
-        // cant harvest withered
-        if(plant.isWithered() == false)
-            return;
-        // if the harvest time is 0 and not withered
-        if(plant.getHarvestTime() == 0){
-            //if enough water and fertilizer
-            if(plant.MeesFertilizerNeeds() && plant.MeetsWaterNeeds()){
+    public float WaterBonus(float harvestTotal, Seeds plant, int limit){
+        int timesWater = (plant.getWaterNo() > limit) ? limit : plant.getWaterNo();
+        return (float)(harvestTotal * 0.2 * (timesWater-1)) ;
+    }
 
-            }
-        }
+    public float FertilizerBonus(float harvestTotal, Seeds plant, int limit){
+        int timesFertilize = (plant.getFertilizerNo() > limit) ? limit : plant.getFertilizerNo();
+        return (float)(harvestTotal * 0.5 * timesFertilize);
+    }
+
+    public void HarvestPlant(Plot plot){
+        Seeds plant = plot.getSeed();
+        Title title = titles.get(titleIndex);
+        //limits for water and fert
+        int maxFertilizerLimit = plant.getWaterBonusLimit() + title.getFertilizerBonus();
+        int maxWaterLimit = plant.getWaterBonusLimit() + title.getWaterBonus();
+        int productsProduced = plant.computeProductsProduced();
+        //compute for results
+        float harvestTotal = productsProduced * (plant.getBasePrice() + title.getEarningsBonus());
+        float waterBonus = WaterBonus(harvestTotal, plant, maxWaterLimit); 
+        float fertilizerBonus = FertilizerBonus(harvestTotal, plant, maxFertilizerLimit);
+        float finalHarvestPrice = harvestTotal + waterBonus + fertilizerBonus;
+        if(plant.getCropType() == "Flower")
+            finalHarvestPrice *= 1.1;
+        //change player stats
+        xp += plant.getXpYield();
+        Objectcoins += finalHarvestPrice;
+        //reset plot with reinitialization
+        plot.resetAfterHarvest();
+        //print player req
+        System.out.println("The plant " + plant.getSeedName() + " was successfully harvested\nQuantity: " + productsProduced + "\nTotal Coins: " + finalHarvestPrice);
     }
 
     public void nextLevel(){
         // no more titles available
-        if(titleIndex >= titles.size()-1)
+        if(titleIndex >= titles.size()-1){
+            System.out.println("You are already at max level");
             return;
+        }
         Title nextTitle = titles.get(titleIndex+1);
         //sufficient funds
         if(enoughMoney(Objectcoins,nextTitle.getRegistrationFee()))
@@ -255,9 +334,17 @@ public class Farmer{
             if( xp/100 >= nextTitle.getlevelRequired()){
                 titleIndex += 1;
                 Objectcoins -= nextTitle.getRegistrationFee();
+                System.out.println("Successfully leveled up to " + nextTitle.getTitleName());
             }
+        else
+            moneyError();
     }
 
+    public void NextDay(){
+
+    }
+
+    // print the plot
     public void RenderPlot(){
         for(int i = 0; i < rows; i++){
             System.out.print("| ");
@@ -271,10 +358,9 @@ public class Farmer{
         }
     }
 
-    // debugging purposes
-    @Override
-    public String toString() {
-        return "Farmer [Objectcoins=" + Objectcoins + ", xp=" + xp + "]";
+    // print player stats
+    public void displayStats() {
+        System.out.println("Stats:\ncurrentDay= " + getCurrentDay() + "\ntitle= " + titles.get(titleIndex).getTitleName() + "\nObjectcoins= " + getObjectcoins() + "\nLevel= " + (int)Math.floor(getXp()/100));
     }
 
 }

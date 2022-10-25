@@ -27,4 +27,8 @@ public class Plot {
         this.seed = seed;
     }
     
+    public void resetAfterHarvest(){
+        setSeed(null);
+        setPlowed(false);
+    }
 }
