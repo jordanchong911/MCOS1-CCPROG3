@@ -143,10 +143,8 @@ public class Seeds {
         return fertilizerNo >= fertilizerNeeds;
     }
 
-    public void witherPlant(){
-        String symbol = "W" + getSymbol().charAt(0) + getSymbol().charAt(1);
-        setWithered(true);
-        setSymbol(symbol);
+    public boolean isHarvestable(){
+        return isWithered() == false && getHarvestTime() == 0;
     }
 
     @Override
@@ -165,7 +163,7 @@ public class Seeds {
 
         System.out.println("Plant in this plot:\nName " + seedName + "\nTimes Watered " + waterNo + "\nWater Needs " + waterNeeds);
         System.out.println("Times Fertilized " + fertilizerNo + "\nFertilizer Needs " + fertilizerNeeds + "\nWater Bonus Limit " + maxWaterLimit);
-        System.out.println("Fertilizer Bonus Limit " + maxFertilizerLimit);
+        System.out.println("Fertilizer Bonus Limit " + maxFertilizerLimit + "\nWithered " + isWithered + "\nHarvest Time remaining " + harvestTime + "\n" );
     }
     
 

@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Farmer {
-    private ArrayList<Title> titles;
-    private ArrayList<Tools> tools;
-    private ArrayList<Seeds> seed;
+    final private ArrayList<Title> titles;
+    final private ArrayList<Tools> tools;
+    final private ArrayList<Seeds> seed;
     private boolean gameOver;
     private int currentDay;
     private int titleIndex = 0;
@@ -84,7 +84,7 @@ public class Farmer {
         return land;
     }
 
-    public ArrayList<Seeds> getSeed() {
+    public ArrayList<Seeds> getSeedList() {
         return seed;
     }
 
@@ -144,6 +144,38 @@ public class Farmer {
             System.out.println("The plant is not ready for harvest");
     }
     // error messages up to here
+    
+    //made this since if we use the indices from the array it will make all instances the same
+    public Seeds generateSeedType(int type){
+        Seeds seed = null;
+        switch(type){
+            case 1:
+                seed = new Seeds(2, 1, 1, 2, 0, 2, 1, 5, 6, 5, "Turnip", "Root crop", "TNP");
+                break;
+            case 2:
+                seed = new Seeds(3, 1, 1, 2, 0, 2, 1, 10, 9, 7.5f, "Carrot", "Root crop", "CRT");
+                break;
+            case 3:
+                seed = new Seeds(5, 3, 1, 10, 1, 4, 2, 20, 3, 12.5f, "Potato", "Root crop", "PTO");
+                break;
+            case 4:
+                seed = new Seeds(1, 1, 1, 1, 0, 2, 1, 5, 5, 2.5f, "Rose", "Flower", "RSE");
+                break;
+            case 5:
+                seed = new Seeds(2, 2, 1, 1, 0, 3, 1, 10, 9, 5f, "Turnips", "Flower", "TPS");
+                break;
+            case 6:
+                seed = new Seeds(3, 2, 1, 1, 1, 3, 2, 20, 19, 7.5f, "Sunflower", "Flower", "SNF");
+                break;
+            case 7:
+                seed = new Seeds(10, 7, 5, 15, 4, 7, 4, 100, 8, 25f, "Mango", "Fruit tree", "MGO");
+                break;
+            case 8:
+                seed = new Seeds(10, 7, 10, 15, 5, 7, 5, 200, 5, 25f, "Apple", "Fruit tree", "APL");
+                break;
+        }
+        return seed;
+    }
 
     // check fruit tree conditions
     public boolean Inbound(int x, int y) {
@@ -184,7 +216,7 @@ public class Farmer {
             return;
         }
 
-        Seeds seedPlaced = seed.get(seedType - 1);
+        Seeds seedPlaced = generateSeedType(seedType);
         // always check if enough money
         if (enoughMoney(Objectcoins, seedPlaced.getSeedCost())){
             // for fruit trees use checking functions
@@ -305,24 +337,6 @@ public class Farmer {
         Seeds plant = plot.getSeed();
         Title title = titles.get(titleIndex);
 
-        // no plant
-        if (plant == null) {
-            plantError(1);
-            return;
-        }
-
-        // check if plant is withered
-        if (plant.isWithered()) {
-            plantError(2);
-            return;
-        }
-
-        // not ready
-        if (plant.getHarvestTime() != 0) {
-            plantError(3);
-            return;
-        }
-
         // limits for water and fert
         int maxFertilizerLimit = plant.getWaterBonusLimit() + title.getFertilizerBonus();
         int maxWaterLimit = plant.getWaterBonusLimit() + title.getWaterBonus();
@@ -379,13 +393,12 @@ public class Farmer {
             for (int j = 0; j < columns; j++) {
                 Seeds plant = land[i][j].getSeed();
                 if (plant != null) {
-                    // decrement harvest time by 1
-                    plant.setHarvestTime(plant.getHarvestTime() - 1);
                     // if the plant is not yet withered
                     if (plant.isWithered() == false) {
                         boolean meetNeeds = plant.MeetsWaterNeeds() && plant.MeetsFertilizerNeeds();
-                        if ((plant.getHarvestTime() == 0 && meetNeeds == false) || plant.getHarvestTime() < 0) {
-                            plant.witherPlant();
+                        plant.setHarvestTime(plant.getHarvestTime() - 1);
+                        if ((plant.getHarvestTime() == 0 && meetNeeds == false)) {
+                            plant.setWithered(true);
                             System.out.println("The plant at plot (" + (i + 1) + "," + (j + 1) + ") has withered");
                         }
                     }
@@ -402,7 +415,10 @@ public class Farmer {
             System.out.print("| ");
             for (int j = 0; j < columns; j++) {
                 if (land[i][j].getSeed() != null)
-                    System.out.print(land[i][j].getSeed().getSymbol() + " ");
+                    if(land[i][j].getSeed().isWithered() == false)
+                        System.out.print(land[i][j].getSeed().getSymbol() + " ");
+                    else
+                        System.out.print("W" + land[i][j].getSeed().getSymbol().charAt(0) + land[i][j].getSeed().getSymbol().charAt(1) + " ");
                 else if(land[i][j].isHasRock())
                     System.out.print("RCK ");
                 else if(land[i][j].getSeed() == null)

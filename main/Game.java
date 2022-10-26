@@ -72,57 +72,68 @@ public class Game {
                         while(modifyPlot){
                             farmer.RenderPlot();
                             int plotMod = -1;
-                            System.out.println("Plot Options\n1.)Plant seed\n2.)View seeds that can be bought\n3.)Water plant\n4.)Use pickaxe\n5.)Plow plot\n6.)Fertilize plant\n7.)Shovel plot\n8.)Harvest plant\n9.)Display plant info\n10.)View Tool info\n11.)Exit plot\n");
-                            while(!(plotMod >=1 && plotMod <= 11)){
+                            int option = 10;
+                            //if harvestable
+                            String displayed = "Plot Options\n1.)Leave plot\n2.)View tools properties\n3.)Remove rock\n4.)Plow plot\n5.)View seed shop\n6.)Plant seed\n7.)Water plant\n8.)Fertilize plant\n9.)Shovel plot\n10.)Plant status";
+                            if(plot.getSeed() != null){
+                                if(plot.getSeed().isHarvestable()){
+                                    displayed += "\n11.)Harvest Plant";
+                                    option = 11;
+                                }
+                            }
+                            System.out.println(displayed);
+                            while(!(plotMod >=1 && plotMod <= option)){
                                 System.out.print("Input Choice: ");
                                 plotMod = scan.nextInt();
                             }
                             switch(plotMod){
                                 case 1:
+                                    modifyPlot= false;
+                                    break;
+                                case 2:
+                                    for(Tools i : farmer.getTools())
+                                        System.out.println(i.toString());
+                                    break;
+                                case 3:
+                                    farmer.RemoveRock(plot);
+                                    break;
+                                case 4:
+                                    farmer.Plow(plot);
+                                    break;
+                                case 5:
+                                    for(int i = 0; i < farmer.getSeedList().size(); i++)
+                                        System.out.println((i+1) + ".)" + farmer.getSeedList().get(i).toString());
+                                    break;
+                                case 6:
                                     int seedType = -1;
                                     //print seed descriptions
                                     System.out.println("Select Seed:");
-                                    for(int i = 0; i < farmer.getSeed().size(); i++)
-                                        System.out.println((i+1) + ".)" + farmer.getSeed().get(i).getSeedName());
+                                    for(int i = 0; i < farmer.getSeedList().size(); i++)
+                                        System.out.println((i+1) + ".)" + farmer.getSeedList().get(i).getSeedName());
                                     while(!(seedType>= 1 && seedType <= 8)){
                                         System.out.print("Input Choice: ");
                                         seedType = scan.nextInt();
                                     }
+                                    System.out.println(xPlot + "," +yPlot);
                                     farmer.PlantSeed(seedType, xPlot, yPlot);
                                     break;
-                                case 2:
-                                    for(int i = 0; i < farmer.getSeed().size(); i++)
-                                        System.out.println((i+1) + ".)" + farmer.getSeed().get(i).toString());
-                                case 3:
+                                case 7:
                                     farmer.WaterPlant(plot);
                                     break;
-                                case 4:
-                                    farmer.RemoveRock(plot);
-                                    break;
-                                case 5:
-                                    farmer.Plow(plot);
-                                    break;
-                                case 6:
+                                case 8:
                                     farmer.FertilizePlant(plot);
                                     break;
-                                case 7:
+                                case 9:
                                     farmer.ShovelPlot(plot);
                                     break;
-                                case 8:
-                                    farmer.HarvestPlant(plot);
-                                    break;
-                                case 9:
+                                case 10:
                                     if(plot.getSeed() == null)
                                         System.out.println("No plant is present");
                                     else
                                         plot.getSeed().plantInfo(farmer);
                                     break;
-                                case 10:
-                                    for(Tools i : farmer.getTools())
-                                        System.out.println(i.toString());
-                                    break;
                                 case 11:
-                                    modifyPlot= false;
+                                    farmer.HarvestPlant(plot);
                                     break;
                             }
                         }
