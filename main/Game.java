@@ -83,7 +83,7 @@ public class Game {
                                     //print seed descriptions
                                     System.out.println("Select Seed:");
                                     for(int i = 0; i < farmer.getSeed().size(); i++)
-                                        System.out.println("Option " +(i+1) + "\n" + farmer.getSeed().get(i).getSeedName());
+                                        System.out.println((i+1) + ".)" + farmer.getSeed().get(i).getSeedName());
                                     while(!(seedType>= 1 && seedType <= 8)){
                                         System.out.print("Input Choice: ");
                                         seedType = scan.nextInt();
