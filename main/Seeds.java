@@ -149,4 +149,24 @@ public class Seeds {
         setSymbol(symbol);
     }
 
+    @Override
+    public String toString() {
+        return "Seed Name " + seedName + "\nCrop Type " + cropType + "\nHarvest Time in days " + harvestTime + "\nWater needs " + waterNeeds
+                +"\nDefault Water Bonus Limit " + waterBonusLimit + "\nFertilizer Needs " + fertilizerNeeds + "\nDefault Fertilizer Bonus Limit " + FertilizerBonusLimit
+                + "\nProducts Produced " + productsMin + "-" + productsMax + "\nSeed Cost " + seedCost + "\nBase selling price per piece " + basePrice +"\nExperience Yield " + xpYield + "\n";
+
+    }
+    
+    public void plantInfo(Farmer farmer){
+
+        Title title = farmer.getTitles().get(farmer.getTitleIndex());
+        int maxFertilizerLimit = getWaterBonusLimit() + title.getFertilizerBonus();
+        int maxWaterLimit = getWaterBonusLimit() + title.getWaterBonus();
+
+        System.out.println("Plant in this plot:\nName " + seedName + "\nTimes Watered " + waterNo + "\nWater Needs " + waterNeeds);
+        System.out.println("Times Fertilized " + fertilizerNo + "\nFertilizer Needs " + fertilizerNeeds + "\nWater Bonus Limit " + maxWaterLimit);
+        System.out.println("Fertilizer Bonus Limit " + maxFertilizerLimit);
+    }
+    
+
 }

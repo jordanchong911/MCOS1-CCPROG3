@@ -41,4 +41,10 @@ public class Title{
         return seedCostReduction;
     }
 
+    @Override
+    public String toString() {
+        return "Title " + TitleName + "\nLevel Required " + (int)levelRequired + "\nEarning Bonus " + earningsBonus + "\nSeed Cost Reduction "  + seedCostReduction
+               + "\nWater Bonus " + waterBonus + "\nFertilizer Bonus " + fertilizerBonus + "\nRegistration Fee " + registrationFee + "\n";
+    }
+
 }

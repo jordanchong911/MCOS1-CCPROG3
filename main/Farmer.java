@@ -24,11 +24,11 @@ public class Farmer {
                 new Title("Distinguished Farmer", 10, 2, 2, 1, 0, 300),
                 new Title("Legendary Farmer", 15, 4, 3, 2, 1, 400)));
 
-        tools = new ArrayList<Tools>(Arrays.asList(new Tools("Plow", 0, 0.5f),
-                new Tools("Watering Can", 0, 0.5f),
-                new Tools("Fertilizer", 10, 4),
-                new Tools("Pickaxe", 50, 15),
-                new Tools("Shovel", 7, 2.0f)));
+        tools = new ArrayList<Tools>(Arrays.asList(new Tools("Plow", 0, 0.5f,"Converts an unplowed tile to a plowed tile. Can only be performed on an unplowed tile."),
+                new Tools("Watering Can", 0, 0.5f, "Adds to the total number of tiles a tile/crop has been watered. Can only be performed on a plowed tile with a crop."),
+                new Tools("Fertilizer", 10, 4, "Adds to the total number of tiles a tile/crop has been applied with fertilizer. Can only be performed on a plowed tile with a crop."),
+                new Tools("Pickaxe", 50, 15, "Removes a rock from a tile. Can only be applied to tiles with a rock."),
+                new Tools("Shovel", 7, 2.0f, "Removes a withered plant from a tile. Can be used on any tile/crop with varying effects, as described above.")));
 
         seed = new ArrayList<Seeds>(Arrays.asList(new Seeds(2, 1, 1, 2, 0, 2, 1, 5, 6, 5, "Turnip", "Root crop", "TNP"),
                 new Seeds(3, 1, 1, 2, 0, 2, 1, 10, 9, 7.5f, "Carrot", "Root crop", "CRT"),
@@ -117,7 +117,7 @@ public class Farmer {
 
     public void rockError(int type) {
         if (type == 1)
-            System.out.println("This plot has a rock unable to plant seed");
+            System.out.println("This plot has a rock");
         else if (type == 2)
             System.out.println("There is no rock here");
     }
@@ -167,11 +167,7 @@ public class Farmer {
         return true;
     }
 
-    public void PlantSeed(int seedType, int x, int y) {
-        //since 1,1 is 0,0 for our case
-        x-=1;
-        y-=1;
-        
+    public void PlantSeed(int seedType, int x, int y) {   
         Plot plot = land[x][y];
 
         if (plot.isHasRock()) {
@@ -367,13 +363,17 @@ public class Farmer {
                 titleIndex += 1;
                 Objectcoins -= nextTitle.getRegistrationFee();
                 System.out.println("Successfully leveled up to " + nextTitle.getTitleName());
-            } else
-                moneyError();
+            } 
+            else
+                System.out.println("Failed to level up to " + nextTitle.getTitleName() + " since you dont have enough xp");
+        else
+            moneyError();
     }
 
     // dont forget to add game over conditions
     // havent complete this yet
     public void NextDay() {
+        System.out.println("Moving onto next day");
         // loop through every piece of plot
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -392,6 +392,8 @@ public class Farmer {
                 }
             }
         }
+        //increment day
+        setCurrentDay(currentDay+1);
     }
 
     // print the plot
