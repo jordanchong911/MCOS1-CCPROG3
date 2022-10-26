@@ -39,5 +39,11 @@ public class Game {
         generateRocks(farmer);
         farmer.RenderPlot();
         farmer.displayStats();
+        Plot plot = farmer.getLand()[0][0];
+        farmer.RemoveRock(plot);
+        farmer.Plow(plot);
+        farmer.PlantSeed(1, 1, 1);
+        farmer.RenderPlot();
+        farmer.displayStats();
     }
 }

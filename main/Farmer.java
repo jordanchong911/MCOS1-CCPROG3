@@ -168,7 +168,12 @@ public class Farmer {
     }
 
     public void PlantSeed(int seedType, int x, int y) {
+        //since 1,1 is 0,0 for our case
+        x-=1;
+        y-=1;
+        
         Plot plot = land[x][y];
+
         if (plot.isHasRock()) {
             rockError(1);
             return;
