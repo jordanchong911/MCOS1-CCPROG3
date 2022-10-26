@@ -8,7 +8,7 @@ public class Farmer {
     private boolean gameOver;
     private int currentDay;
     private int titleIndex = 0;
-    private int rows = 5;
+    private int rows = 10;
     private int columns = 5;
     private Float Objectcoins = 100f;
     private Float xp;
@@ -396,7 +396,9 @@ public class Farmer {
             for (int j = 0; j < columns; j++) {
                 if (land[i][j].getSeed() != null)
                     System.out.print(land[i][j].getSeed().getSymbol() + " ");
-                else
+                else if(land[i][j].isHasRock())
+                    System.out.print("RCK ");
+                else if(land[i][j].getSeed() == null)
                     System.out.print("EMP ");
             }
             System.out.println("|");
