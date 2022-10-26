@@ -131,12 +131,22 @@ public class Seeds {
         this.harvestTime = harvestTime;
     }
 
+    public void setSymbol(String symbol){
+        this.symbol = symbol;
+    }
+
     public boolean MeetsWaterNeeds(){
         return waterNo >= waterNeeds;
     }
 
-    public boolean MeesFertilizerNeeds(){
+    public boolean MeetsFertilizerNeeds(){
         return fertilizerNo >= fertilizerNeeds;
+    }
+
+    public void witherPlant(){
+        String symbol = "W" + getSymbol().charAt(0) + getSymbol().charAt(1);
+        setWithered(true);
+        setSymbol(symbol);
     }
 
 }
