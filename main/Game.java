@@ -34,7 +34,7 @@ public class Game {
             System.out.println("No rock files! No rocks will be used.\n");
         }
     }
-
+    
     public static void main(String[] args) {
         boolean game = true;
         Scanner scan = new Scanner(System.in);

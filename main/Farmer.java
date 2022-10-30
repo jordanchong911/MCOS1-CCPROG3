@@ -397,7 +397,7 @@ public class Farmer {
                     if (plant.isWithered() == false) {
                         boolean meetNeeds = plant.MeetsWaterNeeds() && plant.MeetsFertilizerNeeds();
                         plant.setHarvestTime(plant.getHarvestTime() - 1);
-                        if ((plant.getHarvestTime() == 0 && meetNeeds == false)) {
+                        if ((plant.getHarvestTime() == 0 && meetNeeds == false) || plant.getHarvestTime() < 0) {
                             plant.setWithered(true);
                             System.out.println("The plant at plot (" + (i + 1) + "," + (j + 1) + ") has withered");
                         }
