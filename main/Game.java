@@ -12,7 +12,7 @@ public class Game {
             String[] possibleRockFormation = {"Rocks.txt","Rocks2.txt","Rocks3.txt"};
             // since 3 possible
             Random r = new Random();
-            int index = r.nextInt(0,2+1);
+            int index = r.nextInt(0,possibleRockFormation.length);
             String filename = possibleRockFormation[index];
 
             File myObj = new File(filename);

@@ -384,8 +384,57 @@ public class Farmer {
             moneyError();
     }
 
-    // dont forget to add game over conditions
-    // havent complete this yet
+    public boolean isLose(){
+        int witherCount = 0;
+        int rockCount = 0;
+        int activePlants = 0;
+        int totalTiles = columns * rows;
+        float cheapestPlantCost = seed.get(0).getSeedCost();
+        float shovelPrice =  tools.get(4).getCost();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                Plot tile = land[i][j];
+                Seeds plant = tile.getSeed();
+                if(plant != null){
+                    if(plant.isWithered())
+                        witherCount += 1;
+                    else   
+                        activePlants += 1;
+                }
+                if(tile.isHasRock())
+                    rockCount += 1;
+            }
+        }
+        //if all tiles have withered plants
+        if(witherCount == totalTiles){
+            System.out.println("You lost due to all tiles are occupied by withered plants. Better luck next time!");
+            return false;
+        }
+
+        // no active plants and enough money to buy new seed
+        if(Objectcoins < cheapestPlantCost && activePlants == 0){
+            System.out.println("You lost due to not having any money to buy new plants and no plants growing. Better luck next time!");
+            return false;
+        }
+
+        //if no active or growing plants
+        if(activePlants == 0){
+            System.out.println("You lost due to not having any growing plants. Better luck next time!");
+            return false;
+        } 
+
+        //if all tiles are occupied by rock or wither
+        if(rockCount + witherCount == totalTiles)
+            //since the cheapest way to escape this is that player has a shovel and turnip seed
+            if(Objectcoins < cheapestPlantCost + shovelPrice){
+                System.out.println("You lost due to not having coins to use a shovel and buy the cheapest plant. Better luck next time!");
+                return false;
+            }
+        
+        return true;
+    }
+    
+    //only check if the player lost during transition to next day
     public void NextDay() {
         System.out.println("Moving onto next day");
         // loop through every piece of plot
@@ -407,6 +456,8 @@ public class Farmer {
         }
         //increment day
         setCurrentDay(currentDay+1);
+        if(isLose() == false)
+            gameOver = true;
     }
 
     // print the plot
