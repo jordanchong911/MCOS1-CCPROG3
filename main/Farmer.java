@@ -201,7 +201,8 @@ public class Farmer {
 
     public void PlantSeed(int seedType, int x, int y) {   
         Plot plot = land[x][y];
-
+        Title title = titles.get(titleIndex);
+        
         if (plot.isHasRock()) {
             rockError(1);
             return;
@@ -217,8 +218,11 @@ public class Farmer {
         }
 
         Seeds seedPlaced = generateSeedType(seedType);
-        // always check if enough money
-        if (enoughMoney(Objectcoins, seedPlaced.getSeedCost())){
+        //the new price including the discount
+        float cost = seedPlaced.getSeedCost() - title.getSeedCostReduction();
+
+        // always check if enough money including the title deduction
+        if (enoughMoney(Objectcoins, cost)){
             // for fruit trees use checking functions
             if (seedPlaced.getCropType().equals("Fruit tree"))
                 if (BesideTree(x, y) == false) {
@@ -229,8 +233,8 @@ public class Farmer {
             plot.setSeed(seedPlaced);
             Seeds plotSeed = plot.getSeed();
             plotSeed.setDayPlanted(currentDay);
-            // deduct player coins
-            Objectcoins -= plotSeed.getSeedCost();
+            // deduct player coins including title bonus
+            Objectcoins -= cost;
             // inform user
             System.out.println("Successfully planted " + seedPlaced.getSeedName());
         } 
@@ -385,12 +389,16 @@ public class Farmer {
     }
 
     public boolean isLose(){
+        
         int witherCount = 0;
         int rockCount = 0;
         int activePlants = 0;
         int totalTiles = columns * rows;
-        float cheapestPlantCost = seed.get(0).getSeedCost();
+        Title title = titles.get(titleIndex);
+        //dont forget about the discount for seeds
+        float cheapestPlantCost = seed.get(0).getSeedCost() - title.getSeedCostReduction();
         float shovelPrice =  tools.get(4).getCost();
+        
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 Plot tile = land[i][j];
@@ -411,7 +419,7 @@ public class Farmer {
             return false;
         }
 
-        // no active plants and enough money to buy new seed
+        // no active plants and enough money to buy new seed including the deduction bonus
         if(Objectcoins < cheapestPlantCost && activePlants == 0){
             System.out.println("You lost due to not having any money to buy new plants and no plants growing. Better luck next time!");
             return false;
@@ -483,7 +491,7 @@ public class Farmer {
 
     // print player stats
     public void displayStats() {
-        System.out.println("\nStats\ncurrentDay " + getCurrentDay() + "\ntitle " + titles.get(titleIndex).getTitleName()
+        System.out.println("\nStats\nCurrentDay " + getCurrentDay() + "\nTitle " + titles.get(titleIndex).getTitleName()
                 + "\nObjectcoins " + String.format("%.2f", getObjectcoins()) + "\nLevel " + (int) Math.floor(getXp() / 100));
     }
 
