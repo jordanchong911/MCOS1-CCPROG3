@@ -472,8 +472,10 @@ public class Farmer {
                         System.out.print("W" + land[i][j].getSeed().getSymbol().charAt(0) + land[i][j].getSeed().getSymbol().charAt(1) + " ");
                 else if(land[i][j].isHasRock())
                     System.out.print("RCK ");
-                else if(land[i][j].getSeed() == null)
-                    System.out.print("EMP ");
+                else if(land[i][j].getSeed() == null && land[i][j].isPlowed())
+                    System.out.print("PLW ");
+                else if(land[i][j].getSeed() == null && land[i][j].isPlowed() == false)
+                    System.out.print("UPW ");
             }
             System.out.println("|");
         }
@@ -482,7 +484,7 @@ public class Farmer {
     // print player stats
     public void displayStats() {
         System.out.println("\nStats\ncurrentDay " + getCurrentDay() + "\ntitle " + titles.get(titleIndex).getTitleName()
-                + "\nObjectcoins " + getObjectcoins() + "\nLevel " + (int) Math.floor(getXp() / 100));
+                + "\nObjectcoins " + String.format("%.2f", getObjectcoins()) + "\nLevel " + (int) Math.floor(getXp() / 100));
     }
 
 }
