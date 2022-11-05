@@ -45,7 +45,7 @@ public class Game {
                 // remember to remove stop playing option when game over function is created
                 farmer.RenderPlot();
                 int mainFeatures = -1;
-                System.out.println("Game Options\n1.)Take care of a lot\n2.)View Stats\n3.)Level up\n4.)View possible levels\n5.)View Plot\n6.)Next Day\n7.)Stop Playing\n");
+                System.out.println("\nGame Options\n1.)Take care of a lot\n2.)View Stats\n3.)Level up\n4.)View possible levels\n5.)View Plot\n6.)Next Day\n7.)Stop Playing\n");
                 while(!(mainFeatures >=1 && mainFeatures <= 7)){
                     System.out.print("Input choice: ");
                     mainFeatures = scan.nextInt();
@@ -74,7 +74,7 @@ public class Game {
                             int plotMod = -1;
                             int option = 10;
                             //if harvestable
-                            String displayed = "Plot Options\n1.)Leave plot\n2.)View tools properties\n3.)Remove rock\n4.)Plow plot\n5.)View seed shop\n6.)Plant seed\n7.)Water plant\n8.)Fertilize plant\n9.)Shovel plot\n10.)Plant status";
+                            String displayed = "\nPlot Options\n1.)Leave plot\n2.)View tools properties\n3.)Remove rock\n4.)Plow plot\n5.)View seed shop\n6.)Plant seed\n7.)Water plant\n8.)Fertilize plant\n9.)Shovel plot\n10.)Plant status";
                             if(plot.getSeed() != null){
                                 if(plot.getSeed().isHarvestable()){
                                     displayed += "\n11.)Harvest Plant";
@@ -162,7 +162,7 @@ public class Game {
             }
             //ask user to continue playing
             int choice = -1;
-            System.out.println("Start a new game?\n1.)YES\n2.)NO\n");
+            System.out.println("\nStart a new game?\n1.)YES\n2.)NO\n");
             while(!(choice == 1 || choice == 2)){
                 System.out.print("Input choice: ");
                 choice =scan.nextInt();

@@ -359,7 +359,7 @@ public class Farmer {
         plot.resetAfterHarvest();
 
         // print the player harvest
-        System.out.println("The plant " + plant.getSeedName() + " was successfully harvested\nQuantity: "
+        System.out.println("\nThe plant " + plant.getSeedName() + " was successfully harvested\nQuantity: "
                 + productsProduced + "\nTotal Coins: " + finalHarvestPrice);
     }
 
@@ -481,7 +481,7 @@ public class Farmer {
 
     // print player stats
     public void displayStats() {
-        System.out.println("Stats\ncurrentDay " + getCurrentDay() + "\ntitle " + titles.get(titleIndex).getTitleName()
+        System.out.println("\nStats\ncurrentDay " + getCurrentDay() + "\ntitle " + titles.get(titleIndex).getTitleName()
                 + "\nObjectcoins " + getObjectcoins() + "\nLevel " + (int) Math.floor(getXp() / 100));
     }
 
