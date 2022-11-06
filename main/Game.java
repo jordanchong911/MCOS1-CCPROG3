@@ -41,9 +41,9 @@ public class Game {
         while(game){
             Farmer farmer = new Farmer();
             generateRocks(farmer);
+            farmer.RenderPlot();
             while(farmer.isGameOver() == false){
                 // remember to remove stop playing option when game over function is created
-                farmer.RenderPlot();
                 int mainFeatures = -1;
                 System.out.println("\nGame Options\n1.)Take care of a lot\n2.)View Stats\n3.)Level up\n4.)View possible levels\n5.)View Plot\n6.)Next Day\n7.)Stop Playing\n");
                 while(!(mainFeatures >=1 && mainFeatures <= 7)){
@@ -91,6 +91,7 @@ public class Game {
                                     modifyPlot= false;
                                     break;
                                 case 2:
+                                    System.out.println();
                                     for(Tools i : farmer.getTools())
                                         System.out.println(i.toString());
                                     break;
@@ -101,20 +102,20 @@ public class Game {
                                     farmer.Plow(plot);
                                     break;
                                 case 5:
+                                    System.out.println();
                                     for(int i = 0; i < farmer.getSeedList().size(); i++)
                                         System.out.println((i+1) + ".)" + farmer.getSeedList().get(i).toString());
                                     break;
                                 case 6:
                                     int seedType = -1;
                                     //print seed descriptions
-                                    System.out.println("Select Seed:");
+                                    System.out.println("\nSelect Seed:");
                                     for(int i = 0; i < farmer.getSeedList().size(); i++)
                                         System.out.println((i+1) + ".)" + farmer.getSeedList().get(i).getSeedName());
                                     while(!(seedType>= 1 && seedType <= 8)){
                                         System.out.print("Input Choice: ");
                                         seedType = scan.nextInt();
                                     }
-                                    System.out.println(xPlot + "," +yPlot);
                                     farmer.PlantSeed(seedType, xPlot, yPlot);
                                     break;
                                 case 7:
@@ -149,6 +150,7 @@ public class Game {
                             System.out.println(i.toString());
                         break;
                     case 5:
+                        farmer.RenderPlot();
                         break;
                     case 6:
                         farmer.NextDay();
