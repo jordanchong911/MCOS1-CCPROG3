@@ -131,10 +131,6 @@ public class Seeds {
         this.harvestTime = harvestTime;
     }
 
-    public void setSymbol(String symbol){
-        this.symbol = symbol;
-    }
-
     public boolean MeetsWaterNeeds(){
         return waterNo >= waterNeeds;
     }
