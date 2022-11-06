@@ -425,12 +425,6 @@ public class Farmer {
             return false;
         }
 
-        //if no active or growing plants
-        if(activePlants == 0){
-            System.out.println("You lost due to not having any growing plants. Better luck next time!");
-            return false;
-        } 
-
         //if all tiles are occupied by rock or wither
         if(rockCount + witherCount == totalTiles)
             //since the cheapest way to escape this is that player has a shovel and turnip seed
