@@ -149,7 +149,6 @@ public class Game {
                             System.out.println(i.toString());
                         break;
                     case 5:
-                        farmer.RenderPlot();
                         break;
                     case 6:
                         farmer.NextDay();
