@@ -5,13 +5,13 @@ public class Farmer {
     final private ArrayList<Title> titles;
     final private ArrayList<Tools> tools;
     final private ArrayList<Seeds> seed;
-    private boolean gameOver;
-    private int currentDay;
+    private boolean gameOver = false;
+    private int currentDay = 1;
     private int titleIndex = 0;
     private int rows = 10;
     private int columns = 5;
     private Float Objectcoins = 100f;
-    private Float xp;
+    private Float xp = 0f;
     private Plot[][] land = new Plot[rows][columns];
 
     public Farmer() {
@@ -39,9 +39,6 @@ public class Farmer {
                 new Seeds(10, 7, 5, 15, 4, 7, 4, 100, 8, 25f, "Mango", "Fruit tree", "MGO"),
                 new Seeds(10, 7, 10, 15, 5, 7, 5, 200, 5, 25f, "Apple", "Fruit tree", "APL")));
 
-        xp = 0f;
-        gameOver = false;
-        currentDay = 1;
     }
 
     public Float getObjectcoins() {
@@ -485,7 +482,7 @@ public class Farmer {
 
     // print player stats
     public void displayStats() {
-        System.out.println("\nStats\nCurrentDay " + getCurrentDay() + "\nTitle " + titles.get(titleIndex).getTitleName()
+        System.out.println("\nStats\nCurrent Day " + getCurrentDay() + "\nTitle " + titles.get(titleIndex).getTitleName()
                 + "\nObjectcoins " + String.format("%.2f", getObjectcoins()) + "\nLevel " + (int) Math.floor(getXp() / 100));
     }
 
