@@ -1,0 +1,9 @@
+https://www.tutorialspoint.com/how-to-display-a-jframe-to-the-center-of-a-screen-in-java
+https://stackoverflow.com/questions/18031704/jframe-how-to-disable-window-resizing
+https://stackoverflow.com/questions/26905626/adding-attributes-to-jbutton-java
+https://stackoverflow.com/questions/49971877/how-to-restrict-user-input-in-jtextarea
+https://stackoverflow.com/questions/5328405/jpanel-padding-in-java
+https://stackoverflow.com/questions/299495/how-to-add-an-image-to-a-jpanel
+https://stackoverflow.com/questions/8367500/how-to-hide-background-of-jbutton-which-containt-icon-image
+https://stackoverflow.com/questions/685521/multiline-text-in-jlabel
+https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
