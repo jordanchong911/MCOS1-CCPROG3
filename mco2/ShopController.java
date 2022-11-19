@@ -114,6 +114,7 @@ public class ShopController implements ActionListener{
                 gui.changeDayText();
                 gui.moveDayDialog(gui.getFarmer().getCurrentDay());
                 if(farmer.isGameOver() == true){
+                    gui.gameOverMessage();
                     int answer = gui.gameOverDialog();
                     if(answer == 0){
                         gui.dispose();

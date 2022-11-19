@@ -236,12 +236,16 @@ public class gameGui extends JFrame {
         return JOptionPane.showConfirmDialog(null, "Do you want to start a new game?", "New game", JOptionPane.YES_NO_OPTION);
     }
 
+    public int gameOverMessage(){
+        return JOptionPane.showConfirmDialog(null, "You lost better luck next time!", "Game over", JOptionPane.CLOSED_OPTION);
+    }
+
     public int changeDayDialog(){
         return JOptionPane.showConfirmDialog(null, "Do you want to move to the next day?", "Next day", JOptionPane.YES_NO_OPTION);
     }
 
     public void moveDayDialog(int day){
-        JOptionPane.showConfirmDialog(null, "Successfully moved to " + day, "Next day",JOptionPane.CLOSED_OPTION);
+        JOptionPane.showConfirmDialog(null, "Successfully moved to day " + day , "Next day",JOptionPane.CLOSED_OPTION);
     }
 
 
