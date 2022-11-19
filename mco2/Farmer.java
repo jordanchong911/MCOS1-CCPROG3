@@ -304,7 +304,7 @@ public class Farmer {
         // print the player harvest
         result[0] = plant.getSeedName();
         result[1] = Integer.toString(productsProduced);
-        result[2] = Float.toString(finalHarvestPrice);
+        result[2] = String.format("%.2f",finalHarvestPrice);
         
         return result;
     }

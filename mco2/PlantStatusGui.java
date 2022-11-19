@@ -94,8 +94,9 @@ public class PlantStatusGui extends JFrame {
 
     public void UpdatePlantInfo(Title Title, Seeds seed){
         if(seed != null){
-
             String File = "images/" + seed.getSeedName() + ".jpg";
+            if(seed.isWithered() == true)
+                File = "images/wither.jpg";
             plantImage.setIcon(new ImageIcon(File));
             
             for(int i = 0; i < plantProperties.length; i++){

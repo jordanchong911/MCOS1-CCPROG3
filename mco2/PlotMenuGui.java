@@ -137,8 +137,7 @@ public class PlotMenuGui extends JFrame {
     }
 
     public void Harvest(String name, String quantity, String total){
-        String roundedTotal = String.format("%.2f", total);
-        JOptionPane.showConfirmDialog(null, quantity + " " + name + " has been successfully harvested\nfor a total of " + roundedTotal + " objectcoins", "Harves Success",JOptionPane.CLOSED_OPTION);
+        JOptionPane.showConfirmDialog(null, quantity + " " + name + " has been successfully harvested\nfor a total of " + total + " objectcoins", "Harves Success",JOptionPane.CLOSED_OPTION);
     }
 
     public String seedSelection(){
