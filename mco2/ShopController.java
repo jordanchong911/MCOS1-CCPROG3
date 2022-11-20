@@ -86,20 +86,24 @@ public class ShopController implements ActionListener{
 
         // level up 
         else if (butName.equals("Level up")){
+            
             String result = farmer.nextLevel(titleShopModel.getTitles());
-            if(result.equals("Money"))
-                gui.getPlotGui().moneyError();
+            int ans = JOptionPane.showConfirmDialog(null, "Do you want to level up to the next title", butName, JOptionPane.YES_NO_OPTION);
+            if(ans == 0){
+                if(result.equals("Money"))
+                    gui.getPlotGui().moneyError();
 
-            else if(result.equals("No xp"))
-                gui.xpError();
+                else if(result.equals("No xp"))
+                    gui.xpError();
 
-            else{
-                gui.xpSuccess(result);
-                //change gui here
-                gui.changeTitle(titleShopModel.getTitles().get(farmer.getTitleIndex()).getTitleName());
-                gui.changeCoins(farmer.getObjectcoins());
-                gui.changeXp(farmer.getXp());
-            }            
+                else{
+                    gui.xpSuccess(result);
+                    //change gui here
+                    gui.changeTitle(titleShopModel.getTitles().get(farmer.getTitleIndex()).getTitleName());
+                    gui.changeCoins(farmer.getObjectcoins());
+                    gui.changeXp(farmer.getXp());
+                }    
+            }        
         }
 
         // next day

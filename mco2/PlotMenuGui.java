@@ -148,7 +148,7 @@ public class PlotMenuGui extends JFrame {
     }
 
     public void changePlotImage(String image,JButton Button){
-        String File = "images/" + image + ".jpg";
+        String File = "images/plant/" + image + ".jpg";
         Button.setIcon(new ImageIcon(File));
     }
 

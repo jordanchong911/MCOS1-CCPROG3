@@ -203,26 +203,35 @@ public class PlotController implements ActionListener{
         }
 
         else if(butName.equals("Water All")){
-            farmer.waterAll(tools.get(1));
-            gui.waterAllDialog();
-            gui.changeCoins(farmer.getObjectcoins());
-            gui.changeXp(farmer.getXp());
+            answer = JOptionPane.showConfirmDialog(null, "Do you want to water all plants available", butName, JOptionPane.YES_NO_OPTION);
+            if(answer == 0){
+                farmer.waterAll(tools.get(1));
+                gui.waterAllDialog();
+                gui.changeCoins(farmer.getObjectcoins());
+                gui.changeXp(farmer.getXp());
+            }
         }
 
         else if(butName.equals("Plow All")){
-            farmer.plowAll(tools.get(0));
-            gui.plowAllDialog();
-            gui.changeMatrix();
-            gui.changeCoins(farmer.getObjectcoins());
-            gui.changeXp(farmer.getXp());
+            answer = JOptionPane.showConfirmDialog(null, "Do you want to plow all plots available", butName, JOptionPane.YES_NO_OPTION);
+            if(answer == 0){
+                farmer.plowAll(tools.get(0));
+                gui.plowAllDialog();
+                gui.changeMatrix();
+                gui.changeCoins(farmer.getObjectcoins());
+                gui.changeXp(farmer.getXp());
+            }
         }
 
         else if(butName.equals("Harvest All")){
-            String[] description = farmer.harvestAll(titles.get(farmer.getTitleIndex()));
-            gui.harvestAllDialog(description);
-            gui.changeMatrix();
-            gui.changeCoins(farmer.getObjectcoins());
-            gui.changeXp(farmer.getXp());
+            answer = JOptionPane.showConfirmDialog(null, "Do you want to harvest plants available", butName, JOptionPane.YES_NO_OPTION);
+            if(answer == 0){
+                String[] description = farmer.harvestAll(titles.get(farmer.getTitleIndex()));
+                gui.harvestAllDialog(description);
+                gui.changeMatrix();
+                gui.changeCoins(farmer.getObjectcoins());
+                gui.changeXp(farmer.getXp());
+            }
         }
 
     }

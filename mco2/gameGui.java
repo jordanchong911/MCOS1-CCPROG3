@@ -73,6 +73,8 @@ public class gameGui extends JFrame {
     }
 
     public void init() {
+
+        //day button
         dayButton.setText("Day 1");
         dayButton.setFont(new Font("Arial", Font.PLAIN, (int) getWidth() / 25));
         dayButton.setName("next day");
@@ -130,7 +132,6 @@ public class gameGui extends JFrame {
         eastPanel.add(titleImage);
 
         add(eastPanel, BorderLayout.EAST);
-        eastPanel.setBackground(Color.decode("#DFDFDF"));
 
         // south
         JPanel southPanel = new JPanel();
@@ -138,8 +139,6 @@ public class gameGui extends JFrame {
         flow.setVgap(40);
         southPanel.setLayout(flow);
 
-        southPanel.setBackground(Color.decode("#1E3F66"));
-    
         for (int i = 0; i < stats.length; i++) {
             JLabel playerStat = new JLabel();
             JTextField playerStatInfo = new JTextField();
@@ -161,7 +160,7 @@ public class gameGui extends JFrame {
             playerStatInfo.setEditable(false);
         }
 
-    
+        //initialize button properties
         waterAllButton.setFocusPainted(false);
         waterAllButton.setName("Water All");
         waterAllButton.setPreferredSize(new Dimension(150, 40));
@@ -178,6 +177,7 @@ public class gameGui extends JFrame {
         levelupButton.setName("Level up");
         levelupButton.setPreferredSize(new Dimension(150, 40));
 
+        //add buttons to panel
         southPanel.setPreferredSize(new Dimension(500, 100));
         southPanel.add(plowAllButton);
         southPanel.add(Box.createRigidArea(new Dimension(15, 0)));
@@ -187,6 +187,7 @@ public class gameGui extends JFrame {
         southPanel.add(Box.createRigidArea(new Dimension(15, 0)));
         southPanel.add(levelupButton);
 
+        southPanel.setBackground(Color.decode("#1E3F66"));
         add(southPanel, BorderLayout.SOUTH);
     }
 
@@ -282,7 +283,7 @@ public class gameGui extends JFrame {
     }
 
     public void harvestAllDialog(String[] text){
-        JOptionPane.showConfirmDialog(null, "Successfully harvested " + text[0] + " crops\nfor a total of " + text[1] , "Harvest plant",JOptionPane.CLOSED_OPTION);
+        JOptionPane.showConfirmDialog(null, "Successfully harvested " + text[0] + " crops\nfor a total of " + text[1] + " coins", "Harvest plant",JOptionPane.CLOSED_OPTION);
     }
 
     public void changeCoins(float coins){
@@ -308,6 +309,8 @@ public class gameGui extends JFrame {
                 if(seed != null){
                     if(seed.isWithered() == true)
                         file = "images/wither.jpg";
+                    else if(seed.isWithered() == false && seed.getHarvestTime() == 0)
+                        file = "images/harvestable/" + seed.getSeedName() + ".jpg";
                 }
 
                 else{

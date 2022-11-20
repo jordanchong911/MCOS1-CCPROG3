@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class Farmer {
+
     private boolean gameOver = false;
     private int currentDay = 1;
     private int titleIndex = 0;
@@ -54,7 +55,7 @@ public class Farmer {
     public Plot[][] getLand() {
         return land;
     }
-    
+
     public void setObjecticoins(Float objecticoins) {
         Objectcoins = objecticoins;
     }
@@ -90,11 +91,9 @@ public class Farmer {
                 Objectcoins -= Pickaxe.getCost();
                 xp += Pickaxe.getXpGain();
                 return "Success";
-            } 
-            else
+            } else
                 return "Money";
-        } 
-        else
+        } else
             return "Rock";
     }
 
@@ -102,14 +101,13 @@ public class Farmer {
     public String Plow(int x, int y, Tools Plow) {
         Plot plot = land[x][y];
         // cant plow land with rock
-        if (plot.isHasRock()) 
+        if (plot.isHasRock())
             return "Rock";
         if (plot.isPlowed() == false) {
             plot.setPlowed(true);
             xp += Plow.getXpGain();
             return "Success";
-        } 
-        else
+        } else
             return "Plowed";
     }
 
@@ -125,16 +123,14 @@ public class Farmer {
                 plant.setWaterNo(plant.getWaterNo() + 1);
                 xp += waterCan.getXpGain();
                 return "Success";
-            } 
-            else
+            } else
                 return "Withered";
-        } 
-        else
+        } else
             return "No plant";
     }
 
     public String FertilizePlant(int x, int y, Tools fertilizer) {
-        
+
         Plot plot = land[x][y];
         Seeds plant = plot.getSeed();
 
@@ -145,11 +141,9 @@ public class Farmer {
                 Objectcoins -= fertilizer.getCost();
                 xp += fertilizer.getXpGain();
                 return "Success";
-            } 
-            else
+            } else
                 return "Withered";
-        } 
-        else
+        } else
             return "No plant";
     }
 
@@ -169,14 +163,13 @@ public class Farmer {
             // make plot unplowed dosent matter if it has rock since the default is false
             plot.setPlowed(false);
             return "Success";
-        } 
-        else
+        } else
             return "Money";
     }
 
-    public Seeds generateSeedType(String type){
+    public Seeds generateSeedType(String type) {
         Seeds seed = null;
-        switch(type){
+        switch (type) {
             case "Turnip":
                 seed = new Seeds("Turnip", "Root crop", 2, 1, 2, 0, 1, 1, 2, 5, 6, 5);
                 break;
@@ -227,26 +220,26 @@ public class Farmer {
         return true;
     }
 
-    public String PlantSeed(String seedType, int x, int y, Title title) {   
+    public String PlantSeed(String seedType, int x, int y, Title title) {
         Plot plot = land[x][y];
-        
+
         if (plot.isHasRock()) {
             return "Rock";
         }
-        if (plot.isPlowed() == false){
+        if (plot.isPlowed() == false) {
             return "Not plowed";
         }
-        
-        if(plot.getSeed() != null){
+
+        if (plot.getSeed() != null) {
             return "Occupied";
         }
 
         Seeds seedPlaced = generateSeedType(seedType);
-        //the new price including the discount
+        // the new price including the discount
         float cost = seedPlaced.getSeedCost() - title.getSeedCostReduction();
 
         // always check if enough money including the title deduction
-        if (enoughMoney(Objectcoins, cost)){
+        if (enoughMoney(Objectcoins, cost)) {
             // for fruit trees use checking functions
             if (seedPlaced.getCropType().equals("Fruit tree"))
                 if (BesideTree(x, y) == false) {
@@ -260,13 +253,12 @@ public class Farmer {
             Objectcoins -= cost;
             // inform user
             return "Success";
-        } 
-        else
+        } else
             return "Money";
     }
 
-     // bonuses for total
-     public float WaterBonus(float harvestTotal, Seeds plant, int limit) {
+    // bonuses for total
+    public float WaterBonus(float harvestTotal, Seeds plant, int limit) {
         int timesWater = (plant.getWaterNo() > limit) ? limit : plant.getWaterNo();
         return (float) (harvestTotal * 0.2 * (timesWater - 1));
     }
@@ -299,17 +291,17 @@ public class Farmer {
         xp += plant.getXpYield();
         Objectcoins += finalHarvestPrice;
 
-        //store pieces harvested
+        // store pieces harvested
         pieceHarvested += productsProduced;
 
         // reset plot with reinitialization
         plot.resetAfterHarvest();
-        
+
         // print the player harvest
         result[0] = plant.getSeedName();
         result[1] = Integer.toString(productsProduced);
-        result[2] = String.format("%.2f",finalHarvestPrice);
-        System.out.println(finalHarvestPrice);
+        result[2] = String.format("%.2f", finalHarvestPrice);
+
         return result;
     }
 
@@ -321,60 +313,61 @@ public class Farmer {
             if (xp / 100 >= nextTitle.getlevelRequired()) {
                 titleIndex += 1;
                 Objectcoins -= nextTitle.getRegistrationFee();
-                //max level
-                if(titleIndex == titles.size()-1)
+                // max level
+                if (titleIndex == titles.size() - 1)
                     return "Legendary Farmer";
                 return nextTitle.getTitleName();
-            } 
-            else
+            } else
                 return "No xp";
         else
             return "Money";
     }
 
-    public boolean continueGame(ArrayList<Title> titles, ArrayList<Seeds> seed, ArrayList<Tools> tools){
-        
+    public boolean continueGame(ArrayList<Title> titles, ArrayList<Seeds> seed, ArrayList<Tools> tools) {
+
         int witherCount = 0;
         int rockCount = 0;
         int activePlants = 0;
         int totalTiles = columns * rows;
         Title title = titles.get(titleIndex);
-        //dont forget about the discount for seeds
+        // dont forget about the discount for seeds
         float cheapestPlantCost = seed.get(0).getSeedCost() - title.getSeedCostReduction();
-        float shovelPrice =  tools.get(4).getCost();
-        
+        float shovelPrice = tools.get(4).getCost();
+
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 Plot tile = land[i][j];
                 Seeds plant = tile.getSeed();
-                if(plant != null){
-                    if(plant.isWithered())
+                if (plant != null) {
+                    if (plant.isWithered())
                         witherCount += 1;
-                    else   
+                    else
                         activePlants += 1;
                 }
-                if(tile.isHasRock())
+                if (tile.isHasRock())
                     rockCount += 1;
             }
         }
-        //if all tiles have withered plants
-        if(witherCount == totalTiles)
+        // if all tiles have withered plants
+        if (witherCount == totalTiles)
             return false;
 
-        // no active plants and enough money to buy new seed including the deduction bonus
-        if(Objectcoins < cheapestPlantCost && activePlants == 0)
+        // no active plants and enough money to buy new seed including the deduction
+        // bonus
+        if (Objectcoins < cheapestPlantCost && activePlants == 0)
             return false;
 
-        //if all tiles are occupied by rock or wither
-        if(rockCount + witherCount == totalTiles)
-            //since the cheapest way to escape this is that player has a shovel and turnip seed
-            if(Objectcoins < cheapestPlantCost + shovelPrice)
+        // if all tiles are occupied by rock or wither
+        if (rockCount + witherCount == totalTiles)
+            // since the cheapest way to escape this is that player has a shovel and turnip
+            // seed
+            if (Objectcoins < cheapestPlantCost + shovelPrice)
                 return false;
-        
+
         return true;
     }
-    
-    //only check if the player lost during transition to next day
+
+    // only check if the player lost during transition to next day
     public void NextDay(ArrayList<Title> titles, ArrayList<Seeds> seed, ArrayList<Tools> tools) {
         // loop through every piece of plot
         for (int i = 0; i < rows; i++) {
@@ -391,71 +384,71 @@ public class Farmer {
                 }
             }
         }
-        //increment day
-        setCurrentDay(currentDay+1);
-        if(continueGame(titles,seed,tools) == false)
+        // increment day
+        setCurrentDay(currentDay + 1);
+        if (continueGame(titles, seed, tools) == false)
             gameOver = true;
     }
 
-    public void generateRocks(){
+    public void generateRocks() {
         try {
-            //files that are possible
-            String[] possibleRockFormation = {"Rocks.txt","Rocks2.txt","Rocks3.txt"};
+            // files that are possible
+            String[] possibleRockFormation = { "Rocks.txt", "Rocks2.txt", "Rocks3.txt" };
             // since 3 possible
             Random r = new Random();
-            int index = r.nextInt(0,possibleRockFormation.length);
+            int index = r.nextInt(0, possibleRockFormation.length);
             String filename = "rocks/" + possibleRockFormation[index];
 
             File myObj = new File(filename);
             Scanner scan = new Scanner(myObj);
-            //loop through every number in file with accordance to the matrix size
+            // loop through every number in file with accordance to the matrix size
             while (scan.hasNextLine()) {
-                for (int i=0; i< rows; i++) {
+                for (int i = 0; i < rows; i++) {
                     String[] line = scan.nextLine().trim().split(" ");
-                    for (int j=0; j< line.length; j++)
+                    for (int j = 0; j < line.length; j++)
                         // 1 just means make it a rock
-                        if(Integer.parseInt(line[j]) == 1)
+                        if (Integer.parseInt(line[j]) == 1)
                             land[i][j].setHasRock(true);
                 }
             }
             scan.close();
-        } 
+        }
         // file not found throw error
         catch (FileNotFoundException e) {
             System.out.println("No rock files! No rocks will be used.\n");
         }
     }
 
-    public void waterAll(Tools waterCan){
-        for(int i = 0; i < rows; i++)
-            for(int j = 0; j < columns; j++)
+    public void waterAll(Tools waterCan) {
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < columns; j++)
                 WaterPlant(i, j, waterCan);
     }
 
-    public void plowAll(Tools plow){
-        for(int i = 0; i < rows; i++)
-            for(int j = 0; j < columns; j++)
+    public void plowAll(Tools plow) {
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < columns; j++)
                 Plow(i, j, plow);
     }
 
-    public String[] harvestAll(Title title){
+    public String[] harvestAll(Title title) {
         // reset values to zero
         float currentCoins = Objectcoins;
-        String[] result = new String[2]; 
+        String[] result = new String[2];
         pieceHarvested = 0;
-        
-        for(int i = 0; i < rows; i++)
-            for(int j = 0; j < columns; j++){
+
+        for (int i = 0; i < rows; i++)
+            for (int j = 0; j < columns; j++) {
                 Seeds seed = land[i][j].getSeed();
-                if(seed != null){
-                    if(seed.getHarvestTime() == 0 && seed.isWithered() == false)
+                if (seed != null) {
+                    if (seed.getHarvestTime() == 0 && seed.isWithered() == false)
                         HarvestPlant(i, j, title);
                 }
             }
 
         result[0] = Integer.toString(pieceHarvested);
-        result[1] = String.format("%.2f",Objectcoins-currentCoins);
-        
+        result[1] = String.format("%.2f", Objectcoins - currentCoins);
+
         return result;
     }
 }
