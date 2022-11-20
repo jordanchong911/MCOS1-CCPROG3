@@ -26,6 +26,9 @@ public class gameGui extends JFrame {
     private JButton toolImage = new JButton(new ImageIcon("images/tool.jpg"));
     private JButton titleImage = new JButton(new ImageIcon("images/farmer.jpg"));
     private JButton levelupButton =  new JButton("Rank Up");
+    private JButton waterAllButton = new JButton("Water all plants");
+    private JButton plowAllButton = new JButton("Plow all plots");
+    private JButton harvestAllButton = new JButton("Harvest all plants");
     private JButton[][] matrixButtons = new JButton[farmer.getRows()][farmer.getColumns()];
 
     //controllers 
@@ -49,7 +52,10 @@ public class gameGui extends JFrame {
                                                                                        dayButton));
 
     private ArrayList<JButton> PlotButtonArray = new ArrayList<JButton>(Arrays.asList(plotGui.getExitButton(),
-                                                                                      plantStatus.getExitButton()));
+                                                                                      plantStatus.getExitButton(),
+                                                                                      waterAllButton,
+                                                                                      plowAllButton,
+                                                                                      harvestAllButton));
 
     private ArrayList<JTextField> textFieldArray = new ArrayList<JTextField>();
                                                                                         
@@ -145,7 +151,7 @@ public class gameGui extends JFrame {
 
             southPanel.add(playerStat);
             southPanel.add(playerStatInfo);
-            southPanel.add(Box.createRigidArea(new Dimension(50, 0)));
+            southPanel.add(Box.createRigidArea(new Dimension(20, 0)));
             
             playerStatInfo.setPreferredSize(new Dimension(getWidth() / 10, 20));
 
@@ -155,12 +161,31 @@ public class gameGui extends JFrame {
             playerStatInfo.setEditable(false);
         }
 
-        southPanel.setPreferredSize(new Dimension(500, 100));
-        southPanel.add(levelupButton);
+    
+        waterAllButton.setFocusPainted(false);
+        waterAllButton.setName("Water All");
+        waterAllButton.setPreferredSize(new Dimension(150, 40));
+
+        plowAllButton.setFocusPainted(false);
+        plowAllButton.setName("Plow All");
+        plowAllButton.setPreferredSize(new Dimension(150, 40));
+
+        harvestAllButton.setFocusPainted(false);
+        harvestAllButton.setName("Harvest All");
+        harvestAllButton.setPreferredSize(new Dimension(150, 40));
 
         levelupButton.setFocusPainted(false);
         levelupButton.setName("Level up");
         levelupButton.setPreferredSize(new Dimension(150, 40));
+
+        southPanel.setPreferredSize(new Dimension(500, 100));
+        southPanel.add(plowAllButton);
+        southPanel.add(Box.createRigidArea(new Dimension(15, 0)));
+        southPanel.add(waterAllButton);
+        southPanel.add(Box.createRigidArea(new Dimension(15, 0)));
+        southPanel.add(harvestAllButton);
+        southPanel.add(Box.createRigidArea(new Dimension(15, 0)));
+        southPanel.add(levelupButton);
 
         add(southPanel, BorderLayout.SOUTH);
     }
@@ -248,6 +273,17 @@ public class gameGui extends JFrame {
         JOptionPane.showConfirmDialog(null, "Successfully moved to day " + day , "Next day",JOptionPane.CLOSED_OPTION);
     }
 
+    public void waterAllDialog(){
+        JOptionPane.showConfirmDialog(null, "Successfully watered all possible plants", "Water plant",JOptionPane.CLOSED_OPTION);
+    }
+
+    public void plowAllDialog(){
+        JOptionPane.showConfirmDialog(null, "Successfully plowed all possible plots", "Plow plot",JOptionPane.CLOSED_OPTION);
+    }
+
+    public void harvestAllDialog(String[] text){
+        JOptionPane.showConfirmDialog(null, "Successfully harvested " + text[0] + " crops\nfor a total of " + text[1] , "Harvest plant",JOptionPane.CLOSED_OPTION);
+    }
 
     public void changeCoins(float coins){
         textFieldArray.get(1).setText(String.format("%.2f", coins));
@@ -265,16 +301,29 @@ public class gameGui extends JFrame {
     public void changeMatrix(){
         for (int i = 0; i < farmer.getRows(); i++)
             for (int j = 0; j < farmer.getColumns(); j++) {
-                Seeds seed = farmer.getLand()[i][j].getSeed();
+                Plot plot = farmer.getLand()[i][j];
+                Seeds seed = plot.getSeed();
+                String file = "default";
+
                 if(seed != null){
-                    if(seed.isWithered() == true){
-                        String file = "images/wither.jpg";
-                        matrixButtons[i][j].setIcon( new ImageIcon(file));
-                    }
+                    if(seed.isWithered() == true)
+                        file = "images/wither.jpg";
                 }
+
+                else{
+                    if(plot.isHasRock() == false && plot.isPlowed())
+                        file = "images/plowed.jpg";
+                    else if(plot.isHasRock() == false && plot.isPlowed() == false)
+                        file = "images/unplowed.jpg";
+                }
+
+                if(file.equals("default") == false)
+                    matrixButtons[i][j].setIcon( new ImageIcon(file));
             }
     }
+
     public void changeDayText(){
         dayButton.setText("Day " + farmer.getCurrentDay());
     }
+
 }

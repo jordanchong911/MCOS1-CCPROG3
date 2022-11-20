@@ -13,6 +13,7 @@ public class Farmer {
     private Float Objectcoins = 100f;
     private Float xp = 0f;
     private Plot[][] land = new Plot[rows][columns];
+    private int pieceHarvested = 0;
 
     public Farmer() {
         for (int i = 0; i < rows; i++)
@@ -298,6 +299,9 @@ public class Farmer {
         xp += plant.getXpYield();
         Objectcoins += finalHarvestPrice;
 
+        //store pieces harvested
+        pieceHarvested += productsProduced;
+
         // reset plot with reinitialization
         plot.resetAfterHarvest();
         
@@ -305,7 +309,7 @@ public class Farmer {
         result[0] = plant.getSeedName();
         result[1] = Integer.toString(productsProduced);
         result[2] = String.format("%.2f",finalHarvestPrice);
-        
+        System.out.println(finalHarvestPrice);
         return result;
     }
 
@@ -420,5 +424,38 @@ public class Farmer {
         catch (FileNotFoundException e) {
             System.out.println("No rock files! No rocks will be used.\n");
         }
+    }
+
+    public void waterAll(Tools waterCan){
+        for(int i = 0; i < rows; i++)
+            for(int j = 0; j < columns; j++)
+                WaterPlant(i, j, waterCan);
+    }
+
+    public void plowAll(Tools plow){
+        for(int i = 0; i < rows; i++)
+            for(int j = 0; j < columns; j++)
+                Plow(i, j, plow);
+    }
+
+    public String[] harvestAll(Title title){
+        // reset values to zero
+        float currentCoins = Objectcoins;
+        String[] result = new String[2]; 
+        pieceHarvested = 0;
+        
+        for(int i = 0; i < rows; i++)
+            for(int j = 0; j < columns; j++){
+                Seeds seed = land[i][j].getSeed();
+                if(seed != null){
+                    if(seed.getHarvestTime() == 0 && seed.isWithered() == false)
+                        HarvestPlant(i, j, title);
+                }
+            }
+
+        result[0] = Integer.toString(pieceHarvested);
+        result[1] = String.format("%.2f",Objectcoins-currentCoins);
+        
+        return result;
     }
 }

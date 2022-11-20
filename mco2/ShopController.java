@@ -126,6 +126,4 @@ public class ShopController implements ActionListener{
             }
         }
     }
-
-
 }
