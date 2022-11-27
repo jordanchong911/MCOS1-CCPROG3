@@ -101,7 +101,7 @@ public class ShopController implements ActionListener{
                     //change gui here
                     gui.changeTitle(titleShopModel.getTitles().get(farmer.getTitleIndex()).getTitleName());
                     gui.changeCoins(farmer.getObjectcoins());
-                    gui.changeXp(farmer.getXp());
+                    gui.changelvl(farmer.getXp());
                 }    
             }        
         }

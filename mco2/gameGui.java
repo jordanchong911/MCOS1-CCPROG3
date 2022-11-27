@@ -10,8 +10,8 @@ public class gameGui extends JFrame {
     private Farmer farmer = new Farmer();
 
     //stats
-    private String[] stats = { "Level", "Coins", "Title" };
-    private String[] statDetails = { "0", "100.00", "Farmer" };
+    private String[] stats = { "Level","xp", "Coins", "Title" };
+    private String[] statDetails = { "0", "0" , "100.00", "Farmer"};
 
     //shops
     private SeedShopGui seedShop = new SeedShopGui();
@@ -150,9 +150,9 @@ public class gameGui extends JFrame {
 
             southPanel.add(playerStat);
             southPanel.add(playerStatInfo);
-            southPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+            southPanel.add(Box.createRigidArea(new Dimension(10, 0)));
             
-            playerStatInfo.setPreferredSize(new Dimension(getWidth() / 10, 20));
+            playerStatInfo.setPreferredSize(new Dimension(getWidth() / 11, 20));
 
             playerStatInfo.putClientProperty("Stat", statDetails[i]);
 
@@ -180,11 +180,11 @@ public class gameGui extends JFrame {
         //add buttons to panel
         southPanel.setPreferredSize(new Dimension(500, 100));
         southPanel.add(plowAllButton);
-        southPanel.add(Box.createRigidArea(new Dimension(15, 0)));
+        southPanel.add(Box.createRigidArea(new Dimension(10, 0)));
         southPanel.add(waterAllButton);
-        southPanel.add(Box.createRigidArea(new Dimension(15, 0)));
+        southPanel.add(Box.createRigidArea(new Dimension(10, 0)));
         southPanel.add(harvestAllButton);
-        southPanel.add(Box.createRigidArea(new Dimension(15, 0)));
+        southPanel.add(Box.createRigidArea(new Dimension(10, 0)));
         southPanel.add(levelupButton);
 
         southPanel.setBackground(Color.decode("#1E3F66"));
@@ -287,16 +287,18 @@ public class gameGui extends JFrame {
     }
 
     public void changeCoins(float coins){
-        textFieldArray.get(1).setText(String.format("%.2f", coins));
+        textFieldArray.get(2).setText(String.format("%.2f", coins));
     }
 
-    public void changeXp(float xp){
+    public void changelvl(float xp){
         int ans = (int)Math.floor(xp / 100);
+        String exp = String.format("%.2f", xp);
         textFieldArray.get(0).setText(Integer.toString(ans));
+        textFieldArray.get(1).setText(exp);
     }
 
     public void changeTitle(String title){
-        textFieldArray.get(2).setText(title);
+        textFieldArray.get(3).setText(title);
     }
 
     public void changeMatrix(){

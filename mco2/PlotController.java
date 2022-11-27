@@ -72,7 +72,7 @@ public class PlotController implements ActionListener{
                     //changeGui here
                     plotGui.changePlotImage("unplowed",gui.getMatrixButtons()[x][y]);
                     gui.changeCoins(farmer.getObjectcoins());
-                    gui.changeXp(farmer.getXp());
+                    gui.changelvl(farmer.getXp());
                 }
             }
         }
@@ -90,7 +90,7 @@ public class PlotController implements ActionListener{
                     //changeGui here
                     plotGui.changePlotImage("plowed",gui.getMatrixButtons()[x][y]);
                     gui.changeCoins(farmer.getObjectcoins());
-                    gui.changeXp(farmer.getXp());
+                    gui.changelvl(farmer.getXp());
                 }
             }
         }
@@ -106,7 +106,7 @@ public class PlotController implements ActionListener{
                 else if(result.equals("Success")){
                     plotGui.SuccessMessage(butName);
                     gui.changeCoins(farmer.getObjectcoins());
-                    gui.changeXp(farmer.getXp());
+                    gui.changelvl(farmer.getXp());
                 }
             }
         }
@@ -122,7 +122,7 @@ public class PlotController implements ActionListener{
                 else if(result.equals("Success")){
                     plotGui.SuccessMessage(butName);
                     gui.changeCoins(farmer.getObjectcoins());
-                    gui.changeXp(farmer.getXp());
+                    gui.changelvl(farmer.getXp());
                 }
             }
         }
@@ -140,7 +140,7 @@ public class PlotController implements ActionListener{
                         plotGui.changePlotImage("unplowed",gui.getMatrixButtons()[x][y]);
 
                     gui.changeCoins(farmer.getObjectcoins());
-                    gui.changeXp(farmer.getXp());
+                    gui.changelvl(farmer.getXp());
                 }
             }
         }
@@ -170,7 +170,7 @@ public class PlotController implements ActionListener{
                     //changeGui here
                     plotGui.changePlotImage(seedType,gui.getMatrixButtons()[x][y]);
                     gui.changeCoins(farmer.getObjectcoins());
-                    gui.changeXp(farmer.getXp());
+                    gui.changelvl(farmer.getXp());
                 }
             }
             
@@ -199,7 +199,7 @@ public class PlotController implements ActionListener{
             //changeGui here
             plotGui.changePlotImage("unplowed",gui.getMatrixButtons()[x][y]);
             gui.changeCoins(farmer.getObjectcoins());
-            gui.changeXp(farmer.getXp());
+            gui.changelvl(farmer.getXp());
         }
 
         else if(butName.equals("Water All")){
@@ -208,7 +208,7 @@ public class PlotController implements ActionListener{
                 farmer.waterAll(tools.get(1));
                 gui.waterAllDialog();
                 gui.changeCoins(farmer.getObjectcoins());
-                gui.changeXp(farmer.getXp());
+                gui.changelvl(farmer.getXp());
             }
         }
 
@@ -219,7 +219,7 @@ public class PlotController implements ActionListener{
                 gui.plowAllDialog();
                 gui.changeMatrix();
                 gui.changeCoins(farmer.getObjectcoins());
-                gui.changeXp(farmer.getXp());
+                gui.changelvl(farmer.getXp());
             }
         }
 
@@ -230,7 +230,7 @@ public class PlotController implements ActionListener{
                 gui.harvestAllDialog(description);
                 gui.changeMatrix();
                 gui.changeCoins(farmer.getObjectcoins());
-                gui.changeXp(farmer.getXp());
+                gui.changelvl(farmer.getXp());
             }
         }
 
