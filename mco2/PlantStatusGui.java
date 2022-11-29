@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import javax.swing.border.EmptyBorder;
 
 public class PlantStatusGui extends JFrame {
+    
     String[] plantProperties = {"Times Watered(Needs)",
                                "Times Fertilized(Needs)",
                                "Water Bonus Limit",
@@ -21,10 +22,12 @@ public class PlantStatusGui extends JFrame {
     private JButton exitButton = new JButton("Exit");
 
     private ArrayList<JTextField> InfoLabels = new ArrayList<JTextField>(); 
+
     private JLabel plantImage = new JLabel(new ImageIcon("images/takinaScaled.jpg"));
 
     public PlantStatusGui() {
         super("Plant");
+        setIconImage(new ImageIcon("images/farmer.jpg").getImage());
         setLayout(new BorderLayout());
         setSize(500, 500);
         setResizable(false);

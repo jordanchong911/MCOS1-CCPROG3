@@ -22,21 +22,27 @@ public class Title{
     public String getTitleName() {
         return TitleName;
     }
+
     public float getlevelRequired() {
         return levelRequired;
     }
+
     public int getEarningsBonus() {
         return earningsBonus;
     }
+
     public int getWaterBonus() {
         return waterBonus;
     }
+
     public int getFertilizerBonus() {
         return fertilizerBonus;
     }
+
     public int getRegistrationFee() {
         return registrationFee;
     }
+    
     public int getSeedCostReduction() {
         return seedCostReduction;
     }

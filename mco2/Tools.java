@@ -1,4 +1,5 @@
 public class Tools {
+    
     private String name;
     private float cost;
     private float xpGain;

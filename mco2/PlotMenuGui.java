@@ -35,11 +35,14 @@ public class PlotMenuGui extends JFrame {
                                     "Apple"};
 
     private JButton exitButton = new JButton("Exit");
+
     private ArrayList<JButton> plotButton = new ArrayList<JButton>();
+
     private JPanel optionPanel;
 
     public PlotMenuGui() {
         super("Plot options");
+        setIconImage(new ImageIcon("images/farmer.jpg").getImage());
         setLayout(new BorderLayout());
         setSize(300, 400);
         setResizable(false);
@@ -140,7 +143,7 @@ public class PlotMenuGui extends JFrame {
     }
 
     public String seedSelection(){
-        Object val = JOptionPane.showInputDialog(null,"Choose seed to be planted", "Seed Choice",JOptionPane.INFORMATION_MESSAGE, null, seedChoices, seedChoices[0]);
+        Object val = JOptionPane.showInputDialog(null,"Choose seed to be planted?", "Seed Choice",JOptionPane.INFORMATION_MESSAGE, null, seedChoices, seedChoices[0]);
         if(val == null)
             return "None";
         return val.toString();

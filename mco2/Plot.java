@@ -1,4 +1,5 @@
 public class Plot {
+    
     private boolean isPlowed = false;
     private boolean hasRock = false;
     private Seeds seed = null;

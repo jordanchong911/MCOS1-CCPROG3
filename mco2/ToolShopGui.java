@@ -24,6 +24,7 @@ public class ToolShopGui extends JFrame {
     
     public ToolShopGui() {
         super("Tools");
+        setIconImage(new ImageIcon("images/farmer.jpg").getImage());
         setLayout(new BorderLayout());
         setSize(500, 600);
         setResizable(false);

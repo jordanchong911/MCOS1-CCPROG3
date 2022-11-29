@@ -62,6 +62,7 @@ public class gameGui extends JFrame {
     public gameGui() {
         super("Farming simulator");
         setLayout(new BorderLayout());
+        setIconImage(new ImageIcon("images/farmer.jpg").getImage());
         setSize(1400, 1000);
         setResizable(false);
         setLocationRelativeTo(null);

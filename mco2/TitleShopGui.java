@@ -24,13 +24,17 @@ public class TitleShopGui extends JFrame {
     private JButton exitButton = new JButton("Exit");
     private JButton prevButton = new JButton("<");
     private JButton nextButton = new JButton(">");
+
     private  TitleShopModel TitleShopModel = new TitleShopModel();
+
     private ArrayList<JTextField> InfoLabels = new ArrayList<JTextField>(); 
+    
     private JLabel titleImage = new JLabel(new ImageIcon("images/farmer.jpg"));
 
 
     public TitleShopGui() {
         super("Titles");
+        setIconImage(new ImageIcon("images/farmer.jpg").getImage());
         setLayout(new BorderLayout());
         setSize(500, 550);
         setResizable(false);

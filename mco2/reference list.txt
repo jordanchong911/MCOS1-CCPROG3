@@ -7,3 +7,4 @@ https://stackoverflow.com/questions/299495/how-to-add-an-image-to-a-jpanel
 https://stackoverflow.com/questions/8367500/how-to-hide-background-of-jbutton-which-containt-icon-image
 https://stackoverflow.com/questions/685521/multiline-text-in-jlabel
 https://docs.oracle.com/javase/tutorial/uiswing/components/dialog.html
+https://stackoverflow.com/questions/1614772/how-to-change-jframe-icon

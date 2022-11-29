@@ -34,6 +34,7 @@ public class SeedShopGui extends JFrame {
 
     public SeedShopGui() {
         super("Seeds");
+        setIconImage(new ImageIcon("images/farmer.jpg").getImage());
         setLayout(new BorderLayout());
         setSize(500, 600);
         setResizable(false);

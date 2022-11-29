@@ -1,6 +1,7 @@
 import java.util.Random;
 
 public class Seeds {
+    
     private int harvestTime;
     private int waterNeeds;
     private int productsMin;

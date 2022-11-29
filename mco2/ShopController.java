@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 
 public class ShopController implements ActionListener{
+
     private gameGui gui;
 
     public ShopController(gameGui gui) {
@@ -88,7 +89,7 @@ public class ShopController implements ActionListener{
         else if (butName.equals("Level up")){
             
             String result = farmer.nextLevel(titleShopModel.getTitles());
-            int ans = JOptionPane.showConfirmDialog(null, "Do you want to level up to the next title", butName, JOptionPane.YES_NO_OPTION);
+            int ans = JOptionPane.showConfirmDialog(null, "Do you want to level up to the next title?", butName, JOptionPane.YES_NO_OPTION);
             if(ans == 0){
                 if(result.equals("Money"))
                     gui.getPlotGui().moneyError();

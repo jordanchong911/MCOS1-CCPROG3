@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class PlotController implements ActionListener{
+
     private gameGui gui;
 
     //coordinate of x,y
@@ -203,7 +204,7 @@ public class PlotController implements ActionListener{
         }
 
         else if(butName.equals("Water All")){
-            answer = JOptionPane.showConfirmDialog(null, "Do you want to water all plants available", butName, JOptionPane.YES_NO_OPTION);
+            answer = JOptionPane.showConfirmDialog(null, "Do you want to water all plants available?", butName, JOptionPane.YES_NO_OPTION);
             if(answer == 0){
                 farmer.waterAll(tools.get(1));
                 gui.waterAllDialog();
@@ -213,7 +214,7 @@ public class PlotController implements ActionListener{
         }
 
         else if(butName.equals("Plow All")){
-            answer = JOptionPane.showConfirmDialog(null, "Do you want to plow all plots available", butName, JOptionPane.YES_NO_OPTION);
+            answer = JOptionPane.showConfirmDialog(null, "Do you want to plow all plots available?", butName, JOptionPane.YES_NO_OPTION);
             if(answer == 0){
                 farmer.plowAll(tools.get(0));
                 gui.plowAllDialog();
@@ -224,7 +225,7 @@ public class PlotController implements ActionListener{
         }
 
         else if(butName.equals("Harvest All")){
-            answer = JOptionPane.showConfirmDialog(null, "Do you want to harvest plants available", butName, JOptionPane.YES_NO_OPTION);
+            answer = JOptionPane.showConfirmDialog(null, "Do you want to harvest plants available?", butName, JOptionPane.YES_NO_OPTION);
             if(answer == 0){
                 String[] description = farmer.harvestAll(titles.get(farmer.getTitleIndex()));
                 gui.harvestAllDialog(description);
