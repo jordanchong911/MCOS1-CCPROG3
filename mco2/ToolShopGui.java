@@ -117,6 +117,8 @@ public class ToolShopGui extends JFrame {
         String File = "images/" + tool.getName() + ".jpg";
         toolImage.setIcon(new ImageIcon(File));
 
+        functionText.setText(tool.getfunction());
+
         for(int i = 0;i < InfoLabels.size(); i++){
             switch(i){
                 case 0:
