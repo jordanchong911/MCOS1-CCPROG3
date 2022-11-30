@@ -1,10 +1,28 @@
-import javax.swing.*;
-import java.awt.*;
-import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
+/** 
+ * Represents the gui for the main menu which inherents the JFrame class
+ * @author Jordan Chong
+ * @author Arvin Tan
+*/
 public class gameGui extends JFrame {
     //farmer 
     private Farmer farmer = new Farmer();
@@ -35,7 +53,7 @@ public class gameGui extends JFrame {
     private ShopController shopController;
     private PlotController plotController;
 
-    //array of buttons
+    //array of shop buttons
     private ArrayList<JButton> ButtonShopArray = new ArrayList<JButton> (Arrays.asList(seedImage,
                                                                                        toolImage,
                                                                                        titleImage,
@@ -50,15 +68,20 @@ public class gameGui extends JFrame {
                                                                                        titleShop.getPrevButton(),
                                                                                        levelupButton,
                                                                                        dayButton));
-
+    
+    //array of plot option buttons                                                                                   
     private ArrayList<JButton> PlotButtonArray = new ArrayList<JButton>(Arrays.asList(plotGui.getExitButton(),
                                                                                       plantStatus.getExitButton(),
                                                                                       waterAllButton,
                                                                                       plowAllButton,
                                                                                       harvestAllButton));
 
+    //array of the text field that display the players stats
     private ArrayList<JTextField> textFieldArray = new ArrayList<JTextField>();
-                                                                                        
+                                                                            
+    /**
+     * This method is the constructor for the gui
+    */
     public gameGui() {
         super("Farming simulator");
         setLayout(new BorderLayout());
@@ -73,6 +96,9 @@ public class gameGui extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * This method creates the gui elements that is inside the main gui
+    */
     public void init() {
 
         //day button
@@ -192,11 +218,19 @@ public class gameGui extends JFrame {
         add(southPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * This method initializes the action listener for the shop actions
+     * @param listener the Actionlistener object
+    */
     public void setShopActionListener(ActionListener listener) {
         for (int i = 0; i < ButtonShopArray.size(); i++)
             ButtonShopArray.get(i).addActionListener(listener);
     }
 
+    /**
+     * This method initializes the action listener for the plot actions
+     * @param listener the Actionlistener object
+    */
     public void setPlotActionListener(ActionListener listener){
 
         for (int i = 0; i < PlotButtonArray.size(); i++)
@@ -211,46 +245,89 @@ public class gameGui extends JFrame {
 
     }
 
+    /**
+     * This method gets the seedshopGui
+     * @return the seedshopGui
+    */
     public SeedShopGui getSeedShop() {
         return seedShop;
     }
 
+    /**
+     * This method gets the ToolshopGui
+     * @return the ToolshopGui
+    */
     public ToolShopGui getToolShop() {
         return toolShop;
     }
     
+    /**
+     * This method gets the titleShopGui
+     * @return the titleShopGui
+    */
     public TitleShopGui getTitleShop() {
         return titleShop;
     }
 
+    /**
+     * This method gets the PlotGui
+     * @return the PlotGui
+    */
     public PlotMenuGui getPlotGui() {
         return plotGui;
     }
 
+    /**
+     * This method gets the farmer or the player
+     * @return the farmer or the player
+    */
     public Farmer getFarmer(){
         return farmer;
     }
 
+    /**
+     * This method gets the PlantStatuspGui
+     * @return the PlantStatusGui
+    */
     public PlantStatusGui getPlantStatus() {
         return plantStatus;
     }
     
+    /**
+     * This method gets the ShopController
+     * @return the ShopController
+    */
     public ShopController getShopController() {
         return shopController;
     }
 
+    /**
+     * This method gets the PlotController
+     * @return the PlotController
+    */
     public PlotController getPlotController() {
         return plotController;
     }
     
+    /**
+     * This method gets 2d matrix of buttons
+     * @return the MatrixButtons
+    */
     public JButton[][] getMatrixButtons() {
         return matrixButtons;
     }
     
+    /**
+     * This method warns the user dosent not have enough xp to move to the next title
+    */
     public void xpError(){
         JOptionPane.showConfirmDialog(null, "You don't have enough xp to level up", "Xp Error",JOptionPane.CLOSED_OPTION);
     }
 
+    /**
+     * This method displays that the farmer successfully move to another title
+     * @param title the title which the player advanced to
+    */
     public void xpSuccess(String title){
         String message = "You successfully level up to " + title;
         if(title == "Legendary Farmer")
@@ -259,38 +336,68 @@ public class gameGui extends JFrame {
         JOptionPane.showConfirmDialog(null, message, "Xp Success",JOptionPane.CLOSED_OPTION);
     }
 
+    /**
+     * This method ask the player if he wants to play another game
+     * @return an int if the user chose to start another game or exit
+    */
     public int gameOverDialog(){
         return JOptionPane.showConfirmDialog(null, "Do you want to start a new game?", "New game", JOptionPane.YES_NO_OPTION);
     }
 
+    /**
+     * This method displays that the player lost the game
+    */
     public int gameOverMessage(){
         return JOptionPane.showConfirmDialog(null, "You lost better luck next time!", "Game over", JOptionPane.CLOSED_OPTION);
     }
 
+    /**
+     * This method ask if the user wants to mote to another day
+     * @return an int if the user chose to move to a next day or not
+    */
     public int changeDayDialog(){
         return JOptionPane.showConfirmDialog(null, "Do you want to move to the next day?", "Next day", JOptionPane.YES_NO_OPTION);
     }
 
+    /**
+     * This method displays that the farmer has changed days
+    */
     public void moveDayDialog(int day){
         JOptionPane.showConfirmDialog(null, "Successfully moved to day " + day , "Next day",JOptionPane.CLOSED_OPTION);
     }
 
+    /**
+     * This method displays that the farmer watered all possible plants
+    */
     public void waterAllDialog(){
         JOptionPane.showConfirmDialog(null, "Successfully watered all possible plants", "Water plant",JOptionPane.CLOSED_OPTION);
     }
 
+    /**
+     * This method displays that the farmer plowed all possible plots
+    */
     public void plowAllDialog(){
         JOptionPane.showConfirmDialog(null, "Successfully plowed all possible plots", "Plow plot",JOptionPane.CLOSED_OPTION);
     }
 
+    /**
+     * This method displays the result of harvesting all possible plants
+     * @param text the results of the harvest
+    */
     public void harvestAllDialog(String[] text){
         JOptionPane.showConfirmDialog(null, "Successfully harvested " + text[0] + " crops\nfor a total of " + text[1] + " coins", "Harvest plant",JOptionPane.CLOSED_OPTION);
     }
 
+    /**
+     * This method changes the gui that displays the coins
+    */
     public void changeCoins(float coins){
         textFieldArray.get(2).setText(String.format("%.2f", coins));
     }
 
+    /**
+     * This method changes the gui that displays the current xp and level
+    */
     public void changelvl(float xp){
         int ans = (int)Math.floor(xp / 100);
         String exp = String.format("%.2f", xp);
@@ -298,10 +405,16 @@ public class gameGui extends JFrame {
         textFieldArray.get(1).setText(exp);
     }
 
+    /**
+     * This method changes the gui that displays the current title
+    */
     public void changeTitle(String title){
         textFieldArray.get(3).setText(title);
     }
 
+    /**
+     * This method changes the gui the displays the farmers land
+    */
     public void changeMatrix(){
         for (int i = 0; i < farmer.getRows(); i++)
             for (int j = 0; j < farmer.getColumns(); j++) {
@@ -328,6 +441,9 @@ public class gameGui extends JFrame {
             }
     }
 
+    /**
+     * This method changes the gui that displays the current day
+    */
     public void changeDayText(){
         dayButton.setText("Day " + farmer.getCurrentDay());
     }

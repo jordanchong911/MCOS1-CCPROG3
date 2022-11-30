@@ -1,9 +1,14 @@
-import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
+/** 
+ * Represents the farmer or the player of the game
+ * @author Jordan Chong
+ * @author Arvin Tan
+*/
 public class Farmer {
 
     private boolean gameOver = false;
@@ -16,6 +21,9 @@ public class Farmer {
     private Plot[][] land = new Plot[rows][columns];
     private int pieceHarvested = 0;
 
+    /**
+     * creates an instance of the farmer and generate the 2d matrix of plots
+    */
     public Farmer() {
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < columns; j++)
@@ -24,64 +32,129 @@ public class Farmer {
 
     }
 
+    /**
+     * This method gets the coins that the farmers posses
+     * @return the coin count of the farmer
+    */
     public Float getObjectcoins() {
         return Objectcoins;
     }
 
+    /**
+     * This method gets the current xp of the famer
+     * @return the xp count of the farmer
+    */
     public Float getXp() {
         return xp;
     }
 
+    /**
+     * This method gets the game status of the current instance of the farmer
+     * @return if the farmer lost already or not
+    */
     public boolean isGameOver() {
         return gameOver;
     }
 
+    /**
+     * This method gets the current day which the farmer is on
+     * @return the day of the farmer
+    */
     public int getCurrentDay() {
         return currentDay;
     }
 
+    /**
+     * This method gets the current title index of the farmer
+     * @return the title index of the farmer
+    */
     public int getTitleIndex() {
         return titleIndex;
     }
 
+    /**
+     * This method gets how many rows of land does the farmer owns 
+     * @return the rows of land the farmer owns
+    */
     public int getRows() {
         return rows;
     }
 
+    /**
+     * This method gets how many columns of land does the farmer owns 
+     * @return the columns of land the farmer owns
+    */
     public int getColumns() {
         return columns;
     }
 
+    /**
+     * This method gets the 2d land the farmer owns
+     * @return the 2d land the farmer owns
+    */
     public Plot[][] getLand() {
         return land;
     }
 
+    /**
+     * This method sets the coins of the farmer to the given value
+     * @param objecticoins the new coin count the farmer will own
+    */
     public void setObjecticoins(Float objecticoins) {
         Objectcoins = objecticoins;
     }
 
+    /**
+     * This method sets the xp of the farmer to the given value
+     * @param xp the new xp count the farmer will own
+    */
     public void setXp(Float xp) {
         this.xp = xp;
     }
 
+    /**
+     * This method sets the game status of the farmer to the given value
+     * @param gameOver the game status of the farmer 
+    */
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
     }
 
+    /**
+     * This method sets the current day of the farmer to the given value
+     * @param currentDay the day of the farmer 
+    */
     public void setCurrentDay(int currentDay) {
         this.currentDay = currentDay;
     }
 
+    /**
+     * This method sets the current title of the farmer to the given value
+     * @param titleIndex the title of the farmer
+    */
     public void setTitleIndex(int titleIndex) {
         this.titleIndex = titleIndex;
     }
 
+    /**
+     * This method checks if the famrer has enough money to do a certain action
+     * @param objecticoins the coins that the farmer currently owns
+     * @param cost the cost of the action/item
+     * @return a boolean that signifies if user has enough money
+    */
     public boolean enoughMoney(float objecticoins, float cost) {
         if (objecticoins >= cost)
             return true;
         return false;
     }
 
+    /**
+     * This method allows the farmer to remove a rock from the plot
+     * @param x the x-coordinate of the plot
+     * @param y the y-coordinate of the plot
+     * @param Pickaxe the tool object that will be used to perform the action
+     * @return a string that signifies the status of the action
+    */
     public String RemoveRock(int x, int y, Tools Pickaxe) {
         // remove rock and deduct from player
         Plot plot = land[x][y];
@@ -97,6 +170,13 @@ public class Farmer {
             return "Rock";
     }
 
+    /**
+     * This method allows the farmer to plow a plot
+     * @param x the x-coordinate of the plot
+     * @param y the y-coordinate of the plot
+     * @param Plow the tool object that will be used to perform the action
+     * @return a string that signifies the status of the action
+    */
     // doesnt cost anything so no need subtraction
     public String Plow(int x, int y, Tools Plow) {
         Plot plot = land[x][y];
@@ -111,6 +191,13 @@ public class Farmer {
             return "Plowed";
     }
 
+    /**
+     * This method allows the farmer to water a plant
+     * @param x the x-coordinate of the plot
+     * @param y the y-coordinate of the plot
+     * @param waterCan the tool object that will be used to perform the action
+     * @return a string that signifies the status of the action
+    */
     // doesnt cost anything so no need subtraction
     public String WaterPlant(int x, int y, Tools waterCan) {
 
@@ -129,6 +216,13 @@ public class Farmer {
             return "No plant";
     }
 
+    /**
+     * This method allows the farmer to fertilize a plant
+     * @param x the x-coordinate of the plot
+     * @param y the y-coordinate of the plot
+     * @param waterCan the tool object that will be used to perform the action
+     * @return a string that signifies the status of the action
+    */
     public String FertilizePlant(int x, int y, Tools fertilizer) {
 
         Plot plot = land[x][y];
@@ -147,6 +241,13 @@ public class Farmer {
             return "No plant";
     }
 
+    /**
+     * This methods allows the farmer to shovel a plot
+     * @param x the x-coordinate of the plot
+     * @param y the y-coordinate of the plot
+     * @param shovel the tool object that will be used to perform the action
+     * @return a string that signifies the status of the action
+    */
     public String ShovelPlot(int x, int y, Tools shovel) {
 
         Plot plot = land[x][y];
@@ -167,6 +268,11 @@ public class Farmer {
             return "Money";
     }
 
+    /**
+     * This methods generates a plant to be planted 
+     * @param type the type of seed that will be generated
+     * @return an instance of the seed object to be planted
+    */
     public Seeds generateSeedType(String type) {
         Seeds seed = null;
         switch (type) {
@@ -199,6 +305,12 @@ public class Farmer {
     }
 
     // check fruit tree conditions
+    /**
+     * This method checks if a tree is planted on the outskirts of the plot
+     * @param x the x-coordinate of the plot
+     * @param y the y-coordinate of the plot
+     * @return a boolean that signifies the is planted on the outskirts of the plot
+    */
     public boolean Inbound(int x, int y) {
         // if first or last row/column
         if (x == 0 || x == rows - 1 || y == 0 || y == columns - 1)
@@ -206,6 +318,12 @@ public class Farmer {
         return true;
     }
 
+    /**
+     * This method checks if the tree that is going to be planted has objects beside it
+     * @param x the x-coordinate of the plot
+     * @param y the y-coordinate of the plot
+     * @return a boolean that signifies if the tree that is going to be planted has objects beside it
+    */
     public boolean BesideTree(int x, int y) {
         if (Inbound(x, y) == false)
             return false;
@@ -220,6 +338,14 @@ public class Farmer {
         return true;
     }
 
+    /**
+     * This method allows the farmer to plant a seed
+     * @param seedType the seed that is going to be planted
+     * @param x the x-coordinate of the plot
+     * @param y the y-coordinate of the plot
+     * @param title the current title of the farmer
+     * @return a string that signifies the status of the action
+    */
     public String PlantSeed(String seedType, int x, int y, Title title) {
         Plot plot = land[x][y];
 
@@ -258,16 +384,37 @@ public class Farmer {
     }
 
     // bonuses for total
+    /**
+     * This method computes the water bonus for the final harvest time
+     * @param harvestTotal the base harvest total
+     * @param plant the plant that is going to be harvested
+     * @param limit the max water limit of the plant
+     * @return the water bonus of the harvest
+    */
     public float WaterBonus(float harvestTotal, Seeds plant, int limit) {
         int timesWater = (plant.getWaterNo() > limit) ? limit : plant.getWaterNo();
         return (float) (harvestTotal * 0.2 * (timesWater - 1));
     }
 
+    /**
+     * This method computes the fertilizer bonus for the final harvest time
+     * @param harvestTotal the base harvest total
+     * @param plant the plant that is going to be harvested
+     * @param limit the max fertilizer limit of the plant
+     * @return the fertilizer bonus of the harvest
+    */
     public float FertilizerBonus(float harvestTotal, Seeds plant, int limit) {
         int timesFertilize = (plant.getFertilizerNo() > limit) ? limit : plant.getFertilizerNo();
         return (float) (harvestTotal * 0.5 * timesFertilize);
     }
 
+    /**
+     * This method allows the farmer to harvest a plant
+     * @param x the x-coordinate of the plot
+     * @param y the y-coordinate of the plot
+     * @param title the current title of the farmer
+     * @return a string that signifies the status of the action
+    */
     public String[] HarvestPlant(int x, int y, Title title) {
         Plot plot = land[x][y];
         Seeds plant = plot.getSeed();
@@ -305,6 +452,11 @@ public class Farmer {
         return result;
     }
 
+    /**
+     * This method allows the farmer to be promoted to the next titles
+     * @param titles a list of the available titles 
+     * @return a string that signifies the status of the action
+    */
     public String nextLevel(ArrayList<Title> titles) {
         Title nextTitle = titles.get(titleIndex + 1);
         // sufficient funds
@@ -323,6 +475,13 @@ public class Farmer {
             return "Money";
     }
 
+    /**
+     * This method checks if the player has not lose the game
+     * @param titles a list of the available titles
+     * @param seed a list of the available seeds
+     * @param tools a list of the available tools
+     * @return a boolean that checks if a player lost or not
+    */
     public boolean continueGame(ArrayList<Title> titles, ArrayList<Seeds> seed, ArrayList<Tools> tools) {
 
         int witherCount = 0;
@@ -368,6 +527,12 @@ public class Farmer {
     }
 
     // only check if the player lost during transition to next day
+    /**
+     * This method allows the player to move to another day
+     * @param titles a list of the available titles
+     * @param seed a list of the available seeds
+     * @param tools a list of the available tools
+    */
     public void NextDay(ArrayList<Title> titles, ArrayList<Seeds> seed, ArrayList<Tools> tools) {
         // loop through every piece of plot
         for (int i = 0; i < rows; i++) {
@@ -390,6 +555,9 @@ public class Farmer {
             gameOver = true;
     }
 
+    /**
+     * This method modifies the starting plot to include rocks
+    */
     public void generateRocks() {
         try {
             // files that are possible
@@ -419,18 +587,32 @@ public class Farmer {
         }
     }
 
+
+    /**
+     * This allows the farmer to water all plants in the land
+     * @param waterCan the tool that will be used to make the action
+    */
     public void waterAll(Tools waterCan) {
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < columns; j++)
                 WaterPlant(i, j, waterCan);
     }
 
+    /**
+     * This allows the farmer to plow all plots of land
+     * @param plow the tool that will be used to make the action
+    */
     public void plowAll(Tools plow) {
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < columns; j++)
                 Plow(i, j, plow);
     }
 
+    /**
+     * This allows the farmer to harvest all plants in the land
+     * @param title the current title of the farmer
+     * @return the result of the harvest
+    */
     public String[] harvestAll(Title title) {
         // reset values to zero
         float currentCoins = Objectcoins;

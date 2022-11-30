@@ -1,20 +1,30 @@
 import java.awt.event.ActionEvent;
-import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
+/** 
+ * Represents the controller for the plot buttons
+ * @author Jordan Chong
+ * @author Arvin Tan
+*/
 public class PlotController implements ActionListener{
 
     private gameGui gui;
-
-    //coordinate of x,y
     private int x,y;
 
+    /**
+     * This method is the constructor for the controller
+     */
     public PlotController(gameGui gui) {
         this.gui = gui;
         gui.setPlotActionListener(this);
     }
     
+    /* (non-Javadoc)
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -54,7 +64,7 @@ public class PlotController implements ActionListener{
             }
             plotGui.setVisible(true);
         }
-
+        
         else if (butName.equals("PlotExit")){
             gui.getPlotGui().setVisible(false);
             gui.setVisible(true);

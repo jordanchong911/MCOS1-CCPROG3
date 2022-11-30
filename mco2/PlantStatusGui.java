@@ -1,10 +1,25 @@
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+/** 
+ * Represents the gui for the plant status menu which inherents the JFrame class
+ * @author Jordan Chong
+ * @author Arvin Tan
+*/
 public class PlantStatusGui extends JFrame {
     
+    //attributes being presented
     String[] plantProperties = {"Times Watered(Needs)",
                                "Times Fertilized(Needs)",
                                "Water Bonus Limit",
@@ -12,6 +27,7 @@ public class PlantStatusGui extends JFrame {
                                "Harvest Time",
                                "Withered"};
 
+    //default values of the attributes
     private String[] defaultValues = {"0",
                                       "0",
                                       "0",
@@ -21,10 +37,14 @@ public class PlantStatusGui extends JFrame {
 
     private JButton exitButton = new JButton("Exit");
 
+    //array for information label
     private ArrayList<JTextField> InfoLabels = new ArrayList<JTextField>(); 
 
     private JLabel plantImage = new JLabel(new ImageIcon("images/takinaScaled.jpg"));
 
+    /**
+     * This method is the constructor for the gui
+     */
     public PlantStatusGui() {
         super("Plant");
         setIconImage(new ImageIcon("images/farmer.jpg").getImage());
@@ -36,6 +56,9 @@ public class PlantStatusGui extends JFrame {
         init();
     }
 
+    /**
+     * This method creates the gui elements that is inside the plant status gui
+     */
     public void init(){
         //Center
         JPanel plantInfoPanel = new JPanel(new GridLayout(9, 2, 2, 3));
@@ -91,10 +114,19 @@ public class PlantStatusGui extends JFrame {
         add(southPanel,BorderLayout.SOUTH);
     }
 
+    /**
+     * This method gets the exit button for this gui
+     * @return the exitbutton for the gui
+     */
     public JButton getExitButton() {
         return exitButton;
     }
 
+    /**
+     * This method changes what the gui is displaying
+     * @param Title the current title of the farmer
+     * @param seed the current seed that is displayed
+     */
     public void UpdatePlantInfo(Title Title, Seeds seed){
         if(seed != null){
             String File = "images/" + seed.getSeedName() + ".jpg";

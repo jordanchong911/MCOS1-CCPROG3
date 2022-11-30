@@ -1,10 +1,25 @@
-import javax.swing.*;
-import java.awt.*;
-import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
+/** 
+ * Represents the gui for the seed shop which inherents the JFrame class
+ * @author Jordan Chong
+ * @author Arvin Tan
+*/
 public class SeedShopGui extends JFrame {
 
+    //attributes of the seed to be displayed
     String[] seedProperties = {"Seed Name",
                                 "Crop Type",
                                 "Harvest Time",
@@ -15,6 +30,7 @@ public class SeedShopGui extends JFrame {
                                 "Base Price Per Piece",
                                 "Experience yield"};
 
+    //default values of the properties
     String[] seedDefaultValue = {"Turnip",
                                   "Root Crop",
                                   "2",
@@ -24,14 +40,23 @@ public class SeedShopGui extends JFrame {
                                   "5",
                                   "6",
                                   "5"};
-                                  
+
+    //gui option buttons
     private JButton exitButton = new JButton("Exit");
     private JButton prevButton = new JButton("<");
     private JButton nextButton = new JButton(">");
+
+    //text fields that will store information
     private ArrayList<JTextField> InfoLabels = new ArrayList<JTextField>(); 
+
+    //the model that the gui will use
     private seedShopModel SeedShopModel =  new seedShopModel();
+
     private JLabel seedImage = new JLabel(new ImageIcon("images/turnip.jpg"));
 
+    /**
+     * This method is the constructor for the gui
+     */
     public SeedShopGui() {
         super("Seeds");
         setIconImage(new ImageIcon("images/farmer.jpg").getImage());
@@ -43,6 +68,9 @@ public class SeedShopGui extends JFrame {
         init();
     }
 
+    /**
+     * This method creates the gui elements that is inside the seed shop gui
+     */
     public void init() {
         
         //Center
@@ -105,22 +133,42 @@ public class SeedShopGui extends JFrame {
         add(southPanel,BorderLayout.SOUTH);
     }
 
+    /**
+     * This method gets the exit button for this gui
+     * @return the exitbutton for the gui
+     */
     public JButton getExitButton() {
         return exitButton;
     }
 
+    /**
+     * This method gets the previous button for this gui
+     * @return the previous button for the gui
+     */
     public JButton getPrevButton() {
         return prevButton;
     }
 
+    /**
+     * This method gets the next button for this gui
+     * @return the next button for the gui
+     */
     public JButton getNextButton() {
         return nextButton;
     }
 
+    /**
+     * This method returns the model class of this gui
+     * @return model class of this gui
+     */
     public seedShopModel getSeedShopModel() {
         return SeedShopModel;
     }
     
+    /**
+     * This method changes the gui displayed with the seed info
+     * @param seed the seed object which holds the information
+     */
     public void UpdateSeedInfo(Seeds seed){
         
         //change image here

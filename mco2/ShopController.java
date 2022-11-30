@@ -1,16 +1,28 @@
 import java.awt.event.ActionEvent;
-import javax.swing.*;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
+/** 
+ * Represents the controller for the shop buttons
+ * @author Jordan Chong
+ * @author Arvin Tan
+*/
 public class ShopController implements ActionListener{
 
     private gameGui gui;
 
+    /**
+     * This method is the constructor for the controller
+     */
     public ShopController(gameGui gui) {
         this.gui = gui;
         gui.setShopActionListener(this);
     }
     
+    /* (non-Javadoc)
+     * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton but = (JButton) e.getSource();

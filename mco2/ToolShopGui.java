@@ -1,27 +1,55 @@
-import javax.swing.*;
-import java.awt.*;
-import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
+/** 
+ * Represents the gui for the tool shop gui which inherents the JFrame class
+ * @author Jordan Chong
+ * @author Arvin Tan
+*/
 public class ToolShopGui extends JFrame {
 
+    //attributes that the gui will show
     String[] toolProperties = {"Tool Name",
                                "Cost of Usage",
                                "Experience Gain From use"};
 
+    //the defualt values of each attribute
     String[] toolDefaultValue = {"Plow",
                                  "0",
                                  "0.5",
                                  "<html>Converts an unplowed tile to a plowed tile.<br>Can only be performed on an unplowed tile.</html>",};
 
+    //gui option buttons
     private JButton exitButton = new JButton("Exit");
     private JButton prevButton = new JButton("<");
     private JButton nextButton = new JButton(">");
+
+    //text fields that will store information
     private ArrayList<JTextField> InfoLabels = new ArrayList<JTextField>(); 
+
+    //the model that the gui will use
     private toolShopModel ToolShopModel =  new toolShopModel();    
+
+    //the description of the tool or its function 
     private JLabel functionText = new JLabel(toolDefaultValue[3]);
+    
     private JLabel toolImage = new JLabel(new ImageIcon("images/plow.jpg"));
     
+    /**
+     * This method is the constructor for the gui
+    */
     public ToolShopGui() {
         super("Tools");
         setIconImage(new ImageIcon("images/farmer.jpg").getImage());
@@ -33,6 +61,9 @@ public class ToolShopGui extends JFrame {
         init();
     }
     
+    /**
+     * This method creates the gui elements that is inside the tool shop gui
+    */
     public void init() {
         
         //Center
@@ -99,19 +130,42 @@ public class ToolShopGui extends JFrame {
          add(southPanel,BorderLayout.SOUTH);
     }
 
+    /**
+     * This method gets the exit button for this gui
+     * @return the exitbutton for the gui
+     */
     public JButton getExitButton() {
         return exitButton;
     }
+
+    /**
+     * This method gets the previous button for this gui
+     * @return the previous button for the gui
+     */
     public JButton getPrevButton() {
         return prevButton;
     }
+
+    /**
+     * This method gets the next button for this gui
+     * @return the next button for the gui
+     */
     public JButton getNextButton() {
         return nextButton;
     }
+
+    /**
+     * This method returns the model class of this gui
+     * @return model class of this gui
+     */
     public toolShopModel getToolShopModel() {
         return ToolShopModel;
     }
 
+    /**
+     * This method changes the gui displayed with the tool info
+     * @param tool the tool object which holds the information
+     */
     public void UpdateToolInfo(Tools tool){
         
         //change image here

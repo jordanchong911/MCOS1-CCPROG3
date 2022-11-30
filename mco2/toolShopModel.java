@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/** 
+ * Represents the model for the tool shop
+ * @author Jordan Chong
+ * @author Arvin Tan
+*/
 public class toolShopModel {
 
     private int currentTool = 0;
@@ -12,6 +17,9 @@ public class toolShopModel {
                       new Tools("Pickaxe", 50, 15, "<html>Removes a rock from a tile. Can only be<br>applied to tiles with a rock.</html>"),
                       new Tools("Shovel", 7, 2.0f, "<html>Removes a withered plant from a tile. Can be used<br>on any tile/crop with varying effects.</html>")));
 
+    /**
+     * This method increments the current option by 1
+     */
     public void nextTool(){
         if(currentTool == tools.size()-1)
             currentTool = 0;
@@ -19,6 +27,9 @@ public class toolShopModel {
             currentTool++;
     }
 
+    /**
+     * This method decrements the current option by 1
+     */
     public void previousTool(){
         if(currentTool == 0)
             currentTool = tools.size()-1;
@@ -26,10 +37,18 @@ public class toolShopModel {
             currentTool--;
     }
 
+    /**
+     * This method gets the current tool of the model
+     * @return the current tool of the model
+     */
     public Tools getCurrentTools(){
         return tools.get(currentTool);
     }
 
+    /**
+     * This method gets the array list that conatins tool information
+     * @return array list that conatins tool information
+     */
     public ArrayList<Tools> getTools() {
         return tools;
     }

@@ -1,10 +1,25 @@
-import javax.swing.*;
-import java.awt.*;
-import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.util.ArrayList;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
+/** 
+ * Represents the gui for the title shop which inherents the JFrame class
+ * @author Jordan Chong
+ * @author Arvin Tan
+*/
 public class TitleShopGui extends JFrame {
 
+    //attributes that the gui will show
     private String[] titleProperties = {"Type",
                                        "Level Requirement",
                                        "Earning Bonus per Produce",
@@ -13,6 +28,7 @@ public class TitleShopGui extends JFrame {
                                        "Fertilizer Bonus Increase",
                                        "Registration Fee"};
 
+    //the defualt values of each attribute
     private String[] titleDefaultValue = {"Farmer",
                                           "0",
                                           "0",
@@ -21,17 +37,22 @@ public class TitleShopGui extends JFrame {
                                           "0",
                                           "0.0"};
 
+    //gui option buttons
     private JButton exitButton = new JButton("Exit");
     private JButton prevButton = new JButton("<");
     private JButton nextButton = new JButton(">");
 
+    //the model that the gui will use
     private  TitleShopModel TitleShopModel = new TitleShopModel();
 
+    //text fields that will store information
     private ArrayList<JTextField> InfoLabels = new ArrayList<JTextField>(); 
     
     private JLabel titleImage = new JLabel(new ImageIcon("images/farmer.jpg"));
 
-
+    /**
+     * This method is the constructor for the gui
+     */
     public TitleShopGui() {
         super("Titles");
         setIconImage(new ImageIcon("images/farmer.jpg").getImage());
@@ -43,6 +64,9 @@ public class TitleShopGui extends JFrame {
         init();
     }
 
+    /**
+     * This method creates the gui elements that is inside the title shop gui
+     */
     public void init() {
         //Center
         JPanel titleInfoPanel = new JPanel(new GridLayout(9, 2, 2, 3));
@@ -104,22 +128,42 @@ public class TitleShopGui extends JFrame {
         add(southPanel,BorderLayout.SOUTH);
     }
 
+    /**
+     * This method gets the exit button for this gui
+     * @return the exitbutton for the gui
+     */
     public JButton getExitButton() {
         return exitButton;
     }
 
+    /**
+     * This method gets the previous button for this gui
+     * @return the previous button for the gui
+     */
     public JButton getPrevButton() {
         return prevButton;
     }
 
+    /**
+     * This method gets the next button for this gui
+     * @return the next button for the gui
+     */
     public JButton getNextButton() {
         return nextButton;
     }
 
+    /**
+     * This method returns the model class of this gui
+     * @return model class of this gui
+     */
     public TitleShopModel getTitleShopModel() {
         return TitleShopModel;
     }
 
+    /**
+     * This method changes the gui displayed with the title info
+     * @param title the title object which holds the information
+     */
     public void UpdateTitleInfo(Title title){
         
         //change image here
