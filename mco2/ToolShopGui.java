@@ -72,7 +72,7 @@ public class ToolShopGui extends JFrame {
         JPanel textFuntionPanel = new JPanel(new FlowLayout());
         toolMainPanel.setLayout(new BoxLayout(toolMainPanel, BoxLayout.PAGE_AXIS));
         
-        toolImage.setBorder(new EmptyBorder(50, 0, 10, 0));
+        toolImage.setBorder(new EmptyBorder(40, 0, 20, 0));
         toolImage.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         textFuntionPanel.add(functionText);
@@ -96,7 +96,7 @@ public class ToolShopGui extends JFrame {
         toolMainPanel.add(toolImage);
         toolMainPanel.add(textFuntionPanel);
         toolMainPanel.add(toolInfoPanel);
-        toolMainPanel.setBorder(new EmptyBorder(10, 0, 0, 0));
+        toolMainPanel.setBorder(new EmptyBorder(10, 0, 20, 0));
         
         add(toolMainPanel, BorderLayout.CENTER);
 
